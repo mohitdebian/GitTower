@@ -15,6 +15,7 @@
     "autoprefixer": "^10.4.21",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "d3-force": "^3.0.0",
     "date-fns": "^4.4.0",
     "lucide-react": "^0.553.0",
     "motion": "^12.23.24",
@@ -22,8 +23,12 @@
     "postcss": "^8.5.6",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "react-force-graph-2d": "^1.29.1",
     "react-markdown": "^10.1.0",
+    "rehype-raw": "^7.0.0",
+    "remark-directive": "^4.0.0",
     "remark-gfm": "^4.0.1",
+    "remark-github-alerts": "^0.1.1",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
