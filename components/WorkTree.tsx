@@ -89,7 +89,7 @@ function TreeNode({ icon, label, count, depth, statusDot, ciState, isExpandable 
 
   const handleMouseLeave = () => {
     onHover?.(false);
-    clearTimeout(tooltipTimer.current);
+    if (tooltipTimer.current) clearTimeout(tooltipTimer.current);
     setShowTooltip(false);
   };
 
