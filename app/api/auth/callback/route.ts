@@ -17,6 +17,11 @@ export async function GET(req: Request) {
     return new NextResponse("Internal server error", { status: 500 });
   }
 
+  // Handle Vercel deployments
+  const protocol = process.env.NODE_ENV === 'production' ? 'https' : url.protocol;
+  const host = process.env.VERCEL_URL || url.host;
+  const redirectUri = `${protocol}://${host}/api/auth/callback`;
+
   try {
     const response = await fetch("https://github.com/login/oauth/access_token", {
       method: "POST",
@@ -28,6 +33,7 @@ export async function GET(req: Request) {
         client_id: clientId,
         client_secret: clientSecret,
         code,
+        redirect_uri: redirectUri,
       }),
     });
 
