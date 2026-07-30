@@ -72,7 +72,7 @@ interface TreeNodeProps {
 function TreeNode({ icon, label, count, depth, statusDot, ciState, isExpandable = false, defaultExpanded = false, onClick, onHover, hoverPreview, isSelected, children, suffix }: TreeNodeProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
   const [showTooltip, setShowTooltip] = useState(false);
-  const tooltipTimer = useRef<ReturnType<typeof setTimeout>>();
+  const tooltipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const nodeRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
