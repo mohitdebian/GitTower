@@ -3,7 +3,6 @@ import { motion } from 'motion/react';
 import { 
   ArrowRight, 
   Github, 
-  ArrowDown, 
   Check, 
   MessageSquare, 
   GitPullRequest, 
@@ -17,33 +16,34 @@ import {
   Activity,
   Layers,
   Inbox,
-  LayoutTemplate
+  LayoutTemplate,
+  ArrowDown
 } from 'lucide-react';
 
 export default function LandingPage({ onConnect }: { onConnect: () => void }) {
   return (
-    <div className="min-h-screen bg-[#050505] text-[#a1a1aa] font-sans overflow-x-hidden selection:bg-purple-500/30 selection:text-white">
+    <div className="min-h-screen bg-[#F5F0EB] text-[#5C5652] font-sans overflow-x-hidden selection:bg-[#C4A882]/30 selection:text-[#2C2825]">
       
       {/* Navbar */}
-      <nav className="fixed top-0 inset-x-0 h-16 border-b border-white/5 bg-[#050505]/80 backdrop-blur-md z-50 flex items-center px-6 lg:px-12 justify-between">
+      <nav className="fixed top-0 inset-x-0 h-16 border-b border-[#E0D8CF] bg-[#F5F0EB]/90 backdrop-blur-md z-50 flex items-center px-6 lg:px-12 justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-purple-500">
-            <Box className="w-6 h-6" />
+          <div className="w-8 h-8 rounded-lg bg-[#2C2825] flex items-center justify-center text-[#F5F0EB]">
+            <Box className="w-5 h-5" />
           </div>
-          <span className="font-semibold text-white text-lg tracking-tight">GitTower</span>
+          <span className="font-semibold text-[#2C2825] text-lg tracking-tight">GitTower</span>
         </div>
         
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <a href="#" className="text-white hover:text-purple-400 transition-colors">Features</a>
-          <a href="#" className="hover:text-white transition-colors">How it Works</a>
-          <a href="#" className="hover:text-white transition-colors">Roadmap</a>
-          <a href="#" className="hover:text-white transition-colors">Docs</a>
-          <a href="#" className="hover:text-white transition-colors">GitHub</a>
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#8A8280]">
+          <a href="#" className="text-[#2C2825] hover:text-[#C4A882] transition-colors">Features</a>
+          <a href="#" className="hover:text-[#2C2825] transition-colors">How it Works</a>
+          <a href="#" className="hover:text-[#2C2825] transition-colors">Roadmap</a>
+          <a href="#" className="hover:text-[#2C2825] transition-colors">Docs</a>
+          <a href="#" className="hover:text-[#2C2825] transition-colors">GitHub</a>
         </div>
 
         <button 
           onClick={onConnect}
-          className="text-sm font-medium px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 transition-colors text-white flex items-center gap-2 shadow-[0_0_15px_rgba(147,51,234,0.3)]"
+          className="text-sm font-medium px-4 py-2 rounded-lg bg-[#2C2825] hover:bg-[#3D3835] transition-colors text-[#F5F0EB] flex items-center gap-2"
         >
           <Github className="w-4 h-4" />
           <span className="hidden sm:inline">Sign in with GitHub</span>
@@ -52,32 +52,32 @@ export default function LandingPage({ onConnect }: { onConnect: () => void }) {
       </nav>
 
       {/* 1. Hero Section */}
-      <main className="pt-32 pb-24 px-6 lg:px-12 max-w-[1400px] mx-auto">
+      <main className="pt-32 pb-24 px-6 lg:px-12 max-w-[1300px] mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
-          {/* Hero Left Content */}
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-medium mb-8">
+          {/* Hero Left */}
+          <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EDE6DD] border border-[#DDD4C8] text-[#8A7560] text-xs font-medium mb-8">
               <Heart className="w-3 h-3" />
               Free forever. Open Source.
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-[#2C2825] tracking-tight leading-[1.15] mb-6">
               GitHub organizes repositories.<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-500">GitTower organizes your work.</span>
+              <span className="text-[#A0845E]">GitTower organizes your work.</span>
             </h1>
-            <p className="text-lg text-[#a1a1aa] leading-relaxed mb-10 max-w-xl">
+            <p className="text-lg text-[#7A7472] leading-relaxed mb-10 max-w-xl">
               Pull requests, issues, reviews, mentions, and discussions—all in one place. Know exactly what needs your attention and ship your best work.
             </p>
             <div className="flex flex-col items-start gap-4">
               <button 
                 onClick={onConnect}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-medium rounded-xl transition-all text-lg group shadow-[0_0_20px_rgba(147,51,234,0.4)]"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#2C2825] hover:bg-[#3D3835] text-[#F5F0EB] font-medium rounded-xl transition-colors text-lg group"
               >
                 <Github className="w-5 h-5" />
                 Continue with GitHub 
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <p className="text-xs text-[#71717a] font-medium tracking-wide pl-2">
+              <p className="text-xs text-[#A09C98] font-medium tracking-wide pl-2">
                 No setup required. Start in seconds.
               </p>
             </div>
@@ -85,116 +85,112 @@ export default function LandingPage({ onConnect }: { onConnect: () => void }) {
 
           {/* Hero Right Mockup */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
+            initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
-            <div className="relative rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl overflow-hidden flex flex-col md:flex-row h-[500px]">
+            <div className="rounded-2xl border border-[#DDD4C8] bg-white shadow-xl overflow-hidden flex flex-col md:flex-row h-[480px]">
               
               {/* Mockup Sidebar */}
-              <div className="w-full md:w-56 border-r border-white/5 bg-[#050505] p-4 hidden md:flex flex-col gap-6 shrink-0">
-                <div className="flex items-center gap-2 mb-2 px-2">
-                   <Box className="w-5 h-5 text-purple-500" />
-                   <span className="text-white font-semibold text-sm">GitTower</span>
+              <div className="w-full md:w-52 border-r border-[#EDE6DD] bg-[#FAF7F4] p-4 hidden md:flex flex-col gap-5 shrink-0">
+                <div className="flex items-center gap-2 mb-1 px-1">
+                   <Box className="w-5 h-5 text-[#A0845E]" />
+                   <span className="text-[#2C2825] font-semibold text-sm">GitTower</span>
                 </div>
                 
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between p-2 rounded-lg text-[#a1a1aa] hover:bg-white/5 cursor-pointer">
-                    <div className="flex items-center gap-3 text-sm"><LayoutTemplate className="w-4 h-4" /> Home</div>
+                  <div className="flex items-center justify-between p-2 rounded-lg text-[#8A8280] hover:bg-[#EDE6DD] cursor-pointer text-sm">
+                    <div className="flex items-center gap-3"><LayoutTemplate className="w-4 h-4" /> Home</div>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg bg-purple-500/10 text-purple-400 cursor-pointer">
-                    <div className="flex items-center gap-3 text-sm font-medium"><Inbox className="w-4 h-4" /> Needs Me</div>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-purple-500/20">7</span>
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-[#2C2825] text-[#F5F0EB] cursor-pointer text-sm font-medium">
+                    <div className="flex items-center gap-3"><Inbox className="w-4 h-4" /> Needs Me</div>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#A0845E] text-white">7</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg text-[#a1a1aa] hover:bg-white/5 cursor-pointer">
-                    <div className="flex items-center gap-3 text-sm"><Activity className="w-4 h-4" /> Waiting</div>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10">11</span>
+                  <div className="flex items-center justify-between p-2 rounded-lg text-[#8A8280] hover:bg-[#EDE6DD] cursor-pointer text-sm">
+                    <div className="flex items-center gap-3"><Activity className="w-4 h-4" /> Waiting</div>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#EDE6DD] text-[#7A7472]">11</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg text-[#a1a1aa] hover:bg-white/5 cursor-pointer">
-                    <div className="flex items-center gap-3 text-sm"><Search className="w-4 h-4" /> Following</div>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10">18</span>
+                  <div className="flex items-center justify-between p-2 rounded-lg text-[#8A8280] hover:bg-[#EDE6DD] cursor-pointer text-sm">
+                    <div className="flex items-center gap-3"><Search className="w-4 h-4" /> Following</div>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#EDE6DD] text-[#7A7472]">18</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg text-[#a1a1aa] hover:bg-white/5 cursor-pointer">
-                    <div className="flex items-center gap-3 text-sm"><Check className="w-4 h-4" /> Done</div>
+                  <div className="flex items-center justify-between p-2 rounded-lg text-[#8A8280] hover:bg-[#EDE6DD] cursor-pointer text-sm">
+                    <div className="flex items-center gap-3"><Check className="w-4 h-4" /> Done</div>
                   </div>
                 </div>
 
-                <div className="mt-4 space-y-1">
-                  <div className="text-[11px] font-bold text-[#52525b] uppercase tracking-wider px-2 mb-2">Repositories</div>
-                  <div className="flex items-center gap-3 p-2 text-[#a1a1aa] text-sm"><div className="w-4 h-4 rounded-full bg-white/10" /> facebook/react</div>
-                  <div className="flex items-center gap-3 p-2 text-[#a1a1aa] text-sm"><div className="w-4 h-4 rounded-full bg-white/10" /> rust-lang/rust</div>
-                  <div className="flex items-center gap-3 p-2 text-[#a1a1aa] text-sm"><div className="w-4 h-4 rounded-full bg-white/10" /> vercel/next.js</div>
+                <div className="mt-auto space-y-1">
+                  <div className="text-[11px] font-bold text-[#B0ACA8] uppercase tracking-wider px-2 mb-2">Repos</div>
+                  <div className="flex items-center gap-2 px-2 text-[#8A8280] text-xs"><div className="w-3 h-3 rounded-full bg-[#DDD4C8]" /> facebook/react</div>
+                  <div className="flex items-center gap-2 px-2 text-[#8A8280] text-xs"><div className="w-3 h-3 rounded-full bg-[#DDD4C8]" /> rust-lang/rust</div>
+                  <div className="flex items-center gap-2 px-2 text-[#8A8280] text-xs"><div className="w-3 h-3 rounded-full bg-[#DDD4C8]" /> vercel/next.js</div>
                 </div>
               </div>
               
-              {/* Mockup Main Content */}
-              <div className="flex-1 bg-[#0a0a0a] flex flex-col relative">
-                {/* Search Header */}
-                <div className="h-14 border-b border-white/5 px-6 flex items-center">
-                  <div className="w-full max-w-sm h-8 bg-white/5 border border-white/5 rounded-md flex items-center px-3">
-                    <Search className="w-3.5 h-3.5 text-[#52525b] mr-2" />
-                    <span className="text-xs text-[#52525b]">Search anything...</span>
+              {/* Mockup Content */}
+              <div className="flex-1 bg-white flex flex-col">
+                <div className="h-12 border-b border-[#EDE6DD] px-5 flex items-center">
+                  <div className="w-full max-w-xs h-7 bg-[#FAF7F4] border border-[#EDE6DD] rounded-md flex items-center px-3">
+                    <Search className="w-3 h-3 text-[#B0ACA8] mr-2" />
+                    <span className="text-xs text-[#B0ACA8]">Search...</span>
                   </div>
                 </div>
                 
-                {/* Main List */}
-                <div className="flex-1 p-6 overflow-hidden">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-white font-semibold flex items-center gap-2">
-                      Needs Me <span className="w-5 h-5 rounded-full bg-purple-500/20 text-purple-400 text-xs flex items-center justify-center">7</span>
+                <div className="flex-1 p-5 overflow-hidden">
+                  <div className="flex items-center justify-between mb-5">
+                    <h3 className="text-[#2C2825] font-semibold text-sm flex items-center gap-2">
+                      Needs Me <span className="w-5 h-5 rounded-full bg-[#A0845E] text-white text-[10px] flex items-center justify-center font-bold">7</span>
                     </h3>
-                    <span className="text-xs text-purple-400 font-medium">View all →</span>
                   </div>
 
-                  <div className="space-y-4">
-                    {/* Item 1 */}
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 rounded-full bg-white/10 shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-medium text-white">Review React PR</h4>
-                          <span className="text-xs text-[#52525b]">5m ago</span>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#FAF7F4] border border-[#EDE6DD]">
+                      <div className="w-7 h-7 rounded-full bg-[#E0D8CF] shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs font-medium text-[#2C2825] truncate">Review React PR</h4>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[9px] px-1 py-0.5 rounded bg-[#A0845E]/10 text-[#A0845E] border border-[#A0845E]/20 font-medium">PR</span>
+                          <span className="text-[10px] text-[#B0ACA8]">facebook/react</span>
                         </div>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">PR</span>
-                          <span className="text-xs text-[#71717a]">facebook/react • #30291</span>
-                        </div>
-                        <p className="text-xs text-[#a1a1aa] mt-1">Sarah Johnson requested review</p>
                       </div>
+                      <span className="text-[10px] text-[#B0ACA8] shrink-0">5m</span>
                     </div>
 
-                    {/* Item 2 */}
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 rounded-full bg-white/10 shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-medium text-white">Reply to discussion</h4>
-                          <span className="text-xs text-[#52525b]">30m ago</span>
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#FAF7F4] border border-[#EDE6DD]">
+                      <div className="w-7 h-7 rounded-full bg-[#E0D8CF] shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs font-medium text-[#2C2825] truncate">Reply to discussion</h4>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[9px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-600 border border-blue-500/20 font-medium">DISC</span>
+                          <span className="text-[10px] text-[#B0ACA8]">rust-lang/rust</span>
                         </div>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">DISC</span>
-                          <span className="text-xs text-[#71717a]">rust-lang/rust • #110948</span>
-                        </div>
-                        <p className="text-xs text-[#a1a1aa] mt-1">PlayerOne asked a question</p>
                       </div>
+                      <span className="text-[10px] text-[#B0ACA8] shrink-0">30m</span>
                     </div>
 
-                    {/* Item 3 */}
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 rounded-full bg-white/10 shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-medium text-white">CI passed</h4>
-                          <span className="text-xs text-[#52525b]">1h ago</span>
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#FAF7F4] border border-[#EDE6DD]">
+                      <div className="w-7 h-7 rounded-full bg-[#E0D8CF] shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs font-medium text-[#2C2825] truncate">CI passed — Ready to merge</h4>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[9px] px-1 py-0.5 rounded bg-green-500/10 text-green-700 border border-green-500/20 font-medium">PR</span>
+                          <span className="text-[10px] text-[#B0ACA8]">vercel/next.js</span>
                         </div>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-500/10 text-green-400 border border-green-500/20">PR</span>
-                          <span className="text-xs text-[#71717a]">vercel/next.js • #6201</span>
-                        </div>
-                        <p className="text-xs text-[#a1a1aa] mt-1">Ready to merge</p>
                       </div>
+                      <span className="text-[10px] text-[#B0ACA8] shrink-0">1h</span>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#FAF7F4] border border-[#EDE6DD]">
+                      <div className="w-7 h-7 rounded-full bg-[#E0D8CF] shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs font-medium text-[#2C2825] truncate">Answer maintainer question</h4>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[9px] px-1 py-0.5 rounded bg-orange-500/10 text-orange-600 border border-orange-500/20 font-medium">ISSUE</span>
+                          <span className="text-[10px] text-[#B0ACA8]">pixijs/pixi.js</span>
+                        </div>
+                      </div>
+                      <span className="text-[10px] text-[#B0ACA8] shrink-0">2h</span>
                     </div>
                   </div>
                 </div>
@@ -204,164 +200,106 @@ export default function LandingPage({ onConnect }: { onConnect: () => void }) {
         </div>
       </main>
 
-      {/* Trusted By (Minimal) */}
-      <section className="py-12 border-b border-white/5 bg-[#050505]">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-sm text-[#71717a] font-medium mb-8">Trusted by developers contributing to</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale">
-            {/* Minimal text placeholders for logos to match the vibe */}
-            <span className="font-bold text-xl tracking-tighter text-white">facebook</span>
-            <span className="font-semibold text-xl text-white flex items-center gap-1"><Zap className="w-5 h-5"/> React</span>
-            <span className="font-bold text-xl font-mono text-white">rust</span>
-            <span className="font-bold text-xl tracking-tighter text-white">▲ Vercel</span>
-            <span className="font-bold text-xl text-white">NEXT.js</span>
-            <span className="text-sm text-[#a1a1aa]">and many more...</span>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. The Problem Section */}
-      <section className="py-32 bg-[#0a0a0a]">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-16 items-center">
+      {/* 2. The Problem */}
+      <section className="py-28 bg-[#EDE6DD]">
+        <div className="max-w-[1300px] mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="text-purple-400 text-sm font-semibold mb-3">The problem</div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">Your work is everywhere.<br/>Your focus shouldn't be.</h2>
-            <p className="text-[#a1a1aa] text-lg leading-relaxed max-w-md">
+            <div className="text-[#A0845E] text-sm font-semibold mb-3 uppercase tracking-wider">The problem</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#2C2825] mb-6 leading-tight">Your work is everywhere.<br/>Your focus shouldn't be.</h2>
+            <p className="text-[#7A7472] text-lg leading-relaxed max-w-md">
               Juggling multiple repositories, notifications, and conversations makes it hard to stay focused and ship your best work.
             </p>
           </div>
           
-          {/* Visual Flowchart */}
-          <div className="bg-[#050505] border border-white/5 rounded-2xl p-8 flex items-center justify-between max-w-2xl ml-auto w-full">
+          {/* Flowchart */}
+          <div className="bg-white border border-[#DDD4C8] rounded-2xl p-8 flex items-center justify-between">
+            {[
+              { icon: Github, label: "Notifications", count: "23" },
+              { icon: Layers, label: "Repos", count: "6" },
+              { icon: GitPullRequest, label: "PRs", count: "6" },
+              { icon: MessageSquare, label: "Mentions", count: "5" },
+            ].map((item, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <ArrowRight className="w-4 h-4 text-[#DDD4C8] shrink-0 hidden sm:block" />}
+                <div className="flex flex-col items-center gap-2">
+                  <div className="w-11 h-11 rounded-full bg-[#FAF7F4] border border-[#E0D8CF] flex items-center justify-center relative">
+                    <item.icon className="w-5 h-5 text-[#8A8280]" />
+                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-[#C4705A] rounded-full flex items-center justify-center text-[9px] text-white font-bold">{item.count}</div>
+                  </div>
+                  <span className="text-[10px] text-[#8A8280] text-center">{item.label}</span>
+                </div>
+              </React.Fragment>
+            ))}
+            <ArrowRight className="w-4 h-4 text-[#DDD4C8] shrink-0 hidden sm:block" />
             <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center relative">
-                <Github className="w-6 h-6 text-[#a1a1aa]" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] text-white font-bold">23</div>
-              </div>
-              <span className="text-xs text-[#71717a]">Notifications</span>
-            </div>
-            <ArrowRight className="w-4 h-4 text-[#3f3f46]" />
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center relative">
-                <Layers className="w-6 h-6 text-[#a1a1aa]" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] text-white font-bold">6</div>
-              </div>
-              <span className="text-xs text-[#71717a]">Repositories</span>
-            </div>
-            <ArrowRight className="w-4 h-4 text-[#3f3f46]" />
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center relative">
-                <GitPullRequest className="w-6 h-6 text-[#a1a1aa]" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] text-white font-bold">6</div>
-              </div>
-              <span className="text-xs text-[#71717a]">Pull Requests</span>
-            </div>
-            <ArrowRight className="w-4 h-4 text-[#3f3f46]" />
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center relative">
-                <MessageSquare className="w-6 h-6 text-[#a1a1aa]" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] text-white font-bold">5</div>
-              </div>
-              <span className="text-xs text-[#71717a]">Mentions</span>
-            </div>
-            <ArrowRight className="w-4 h-4 text-[#3f3f46]" />
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500 font-bold text-xl">
+              <div className="w-11 h-11 rounded-full bg-[#C4705A]/10 border border-[#C4705A]/20 flex items-center justify-center text-[#C4705A] font-bold text-lg">
                 ?
               </div>
-              <span className="text-xs text-red-400 font-medium text-center leading-tight">Where do<br/>I start?</span>
+              <span className="text-[10px] text-[#C4705A] font-medium text-center leading-tight">Where do<br/>I start?</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* 3. Why GitTower (Comparison) */}
-      <section className="py-32 bg-[#050505]">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-16 items-center">
+      <section className="py-28 bg-[#F5F0EB]">
+        <div className="max-w-[1300px] mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-16 items-center">
           
           <div className="lg:col-span-4">
-            <div className="text-purple-400 text-sm font-semibold mb-3">Why GitTower</div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#71717a] mb-2 leading-tight">GitHub tells you what happened.</h2>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">GitTower tells you what to do.</h2>
+            <div className="text-[#A0845E] text-sm font-semibold mb-3 uppercase tracking-wider">Why GitTower</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#B0ACA8] mb-2 leading-tight">GitHub tells you what happened.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#2C2825] leading-tight">GitTower tells you what to do.</h2>
           </div>
 
           <div className="lg:col-span-8 flex flex-col md:flex-row items-stretch gap-6 w-full">
             
             {/* GitHub Card */}
-            <div className="flex-1 bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-6">GitHub</h3>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 text-[#a1a1aa]">
-                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                    <MessageSquare className="w-3 h-3 text-white" />
+            <div className="flex-1 bg-white border border-[#DDD4C8] rounded-2xl p-6">
+              <h3 className="text-lg font-semibold text-[#2C2825] mb-6">GitHub</h3>
+              <div className="space-y-5">
+                {[
+                  { icon: MessageSquare, text: "Sarah commented", color: "text-[#8A8280]", bg: "bg-[#EDE6DD]" },
+                  { icon: Search, text: "Review requested", color: "text-[#C4705A]", bg: "bg-[#C4705A]/10" },
+                  { icon: Check, text: "CI passed", color: "text-green-700", bg: "bg-green-100" },
+                  { icon: Activity, text: "Mentioned you", color: "text-[#8A8280]", bg: "bg-[#EDE6DD]" },
+                  { icon: Inbox, text: "14 notifications", color: "text-[#C4705A]", bg: "bg-[#C4705A]" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-4 text-[#7A7472]">
+                    <div className={`w-6 h-6 rounded-full ${i === 4 ? 'bg-[#C4705A]' : item.bg} flex items-center justify-center shrink-0`}>
+                      {i === 4 ? <span className="text-[10px] text-white font-bold">!</span> : <item.icon className={`w-3 h-3 ${item.color}`} />}
+                    </div>
+                    <span className="text-sm">{item.text}</span>
                   </div>
-                  <span className="text-sm">Sarah commented</span>
-                </div>
-                <div className="flex items-center gap-4 text-[#a1a1aa]">
-                  <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
-                    <Search className="w-3 h-3 text-red-400" />
-                  </div>
-                  <span className="text-sm">Review requested</span>
-                </div>
-                <div className="flex items-center gap-4 text-[#a1a1aa]">
-                  <div className="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
-                    <Check className="w-3 h-3 text-green-400" />
-                  </div>
-                  <span className="text-sm">CI passed</span>
-                </div>
-                <div className="flex items-center gap-4 text-[#a1a1aa]">
-                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                    <Activity className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-sm">Mentioned you</span>
-                </div>
-                <div className="flex items-center gap-4 text-[#a1a1aa]">
-                  <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center shrink-0">
-                    <span className="text-[10px] text-white font-bold">!</span>
-                  </div>
-                  <span className="text-sm">14 notifications</span>
-                </div>
+                ))}
               </div>
             </div>
 
-            <div className="hidden md:flex flex-col justify-center gap-6">
-              {[1,2,3,4,5].map(i => <ArrowRight key={i} className="w-4 h-4 text-[#3f3f46]" />)}
+            <div className="hidden md:flex flex-col justify-center gap-5">
+              {[1,2,3,4,5].map(i => <ArrowRight key={i} className="w-4 h-4 text-[#DDD4C8]" />)}
             </div>
 
             {/* GitTower Card */}
-            <div className="flex-1 bg-[#050505] border border-purple-500/30 rounded-2xl p-6 relative overflow-hidden shadow-[0_0_30px_rgba(147,51,234,0.05)]">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-[50px] rounded-full pointer-events-none" />
-              <h3 className="text-lg font-semibold text-purple-400 mb-6">GitTower</h3>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 text-white">
-                  <div className="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
-                    <MessageSquare className="w-3 h-3 text-purple-400" />
+            <div className="flex-1 bg-[#2C2825] border border-[#3D3835] rounded-2xl p-6">
+              <h3 className="text-lg font-semibold text-[#C4A882] mb-6">GitTower</h3>
+              <div className="space-y-5">
+                {[
+                  { icon: MessageSquare, text: "Sarah is waiting for your reply" },
+                  { icon: Search, text: "Needs your review" },
+                  { icon: GitMerge, text: "Ready to merge" },
+                  { icon: Activity, text: "Conversation waiting" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-4 text-[#E0D8CF]">
+                    <div className="w-6 h-6 rounded-full bg-[#C4A882]/10 flex items-center justify-center shrink-0">
+                      <item.icon className="w-3 h-3 text-[#C4A882]" />
+                    </div>
+                    <span className="text-sm font-medium">{item.text}</span>
                   </div>
-                  <span className="text-sm font-medium">Sarah is waiting for your reply</span>
-                </div>
-                <div className="flex items-center gap-4 text-white">
-                  <div className="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
-                    <Search className="w-3 h-3 text-purple-400" />
+                ))}
+                <div className="flex items-center gap-4 text-[#C4A882]">
+                  <div className="w-6 h-6 rounded-full bg-[#C4A882] flex items-center justify-center shrink-0">
+                    <Check className="w-3 h-3 text-[#2C2825]" />
                   </div>
-                  <span className="text-sm font-medium">Needs your review</span>
-                </div>
-                <div className="flex items-center gap-4 text-white">
-                  <div className="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
-                    <GitMerge className="w-3 h-3 text-purple-400" />
-                  </div>
-                  <span className="text-sm font-medium">Ready to merge</span>
-                </div>
-                <div className="flex items-center gap-4 text-white">
-                  <div className="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
-                    <Activity className="w-3 h-3 text-purple-400" />
-                  </div>
-                  <span className="text-sm font-medium">Conversation waiting</span>
-                </div>
-                <div className="flex items-center gap-4 text-white">
-                  <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center shrink-0">
-                    <Check className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-sm font-medium text-purple-400">3 things need your attention</span>
+                  <span className="text-sm font-bold">3 things need your attention</span>
                 </div>
               </div>
             </div>
@@ -370,93 +308,205 @@ export default function LandingPage({ onConnect }: { onConnect: () => void }) {
         </div>
       </section>
 
-      {/* 4. Features Grid */}
-      <section className="py-32 bg-[#0a0a0a] border-t border-white/5">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="text-purple-400 text-sm font-semibold mb-8">Everything you need in one place</div>
+      {/* 4. Before vs After */}
+      <section className="py-28 bg-[#EDE6DD]">
+        <div className="max-w-[1100px] mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="text-[#A0845E] text-sm font-semibold mb-3 uppercase tracking-wider">Before vs After</div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white border border-[#DDD4C8] rounded-2xl p-8">
+              <h3 className="text-lg font-bold text-[#2C2825] mb-6 flex items-center gap-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#C4705A]" />
+                Before GitTower
+              </h3>
+              <div className="space-y-3 font-mono text-sm">
+                {[
+                  { label: "Notifications", val: "23" },
+                  { label: "Browser Tabs", val: "9" },
+                  { label: "Repositories", val: "6" },
+                  { label: "Review Requests", val: "4" },
+                  { label: "Mentions", val: "3" },
+                ].map((item, i) => (
+                  <div key={i} className="p-3 bg-[#FAF7F4] border border-[#EDE6DD] rounded-lg flex justify-between text-[#7A7472]">
+                    <span>{item.label}</span> <span className="text-[#2C2825] font-semibold">{item.val}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 text-center text-[#C4705A] font-medium bg-[#C4705A]/5 py-3 rounded-lg border border-[#C4705A]/10">
+                "Where do I start?"
+              </p>
+            </div>
+
+            <div className="bg-[#2C2825] border border-[#3D3835] rounded-2xl p-8">
+              <h3 className="text-lg font-bold text-[#E0D8CF] mb-6 flex items-center gap-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#8AB07A]" />
+                After GitTower
+              </h3>
+              <div className="text-xs font-bold text-[#8A8280] uppercase tracking-wider mb-4">Needs Me (4)</div>
+              <div className="space-y-4">
+                {["Review React PR", "Reply to Sarah", "Merge Payment Fix", "Answer maintainer"].map((text, i) => (
+                  <div key={i} className="flex items-center gap-3 text-[#E0D8CF]">
+                    <Check className="w-5 h-5 text-[#8AB07A]" /> {text}
+                  </div>
+                ))}
+              </div>
+              <p className="mt-8 text-center text-[#8AB07A] font-bold text-lg">
+                ✓ Done.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Features Grid */}
+      <section className="py-28 bg-[#F5F0EB]">
+        <div className="max-w-[1300px] mx-auto px-6 lg:px-12">
+          <div className="text-[#A0845E] text-sm font-semibold mb-3 uppercase tracking-wider">Everything you need in one place</div>
+          <h2 className="text-3xl font-bold text-[#2C2825] mb-12">Built for how developers actually work.</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            {/* Feature 1 */}
-            <div className="bg-[#050505] border border-white/5 rounded-2xl p-6 flex flex-col hover:border-white/10 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6">
-                <Inbox className="w-5 h-5 text-purple-400" />
+            <div className="bg-white border border-[#DDD4C8] rounded-2xl p-6 flex flex-col hover:border-[#C4A882] transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-[#EDE6DD] flex items-center justify-center mb-6">
+                <Inbox className="w-5 h-5 text-[#A0845E]" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">One inbox for everything</h3>
-              <p className="text-sm text-[#a1a1aa] leading-relaxed mb-6 flex-1">
-                PRs, issues, mentions, reviews, and discussions—unified in one intelligent inbox.
+              <h3 className="text-base font-bold text-[#2C2825] mb-2">One inbox</h3>
+              <p className="text-sm text-[#7A7472] leading-relaxed flex-1">
+                PRs, issues, mentions, reviews, and discussions in one intelligent inbox.
               </p>
-              <div className="border border-white/5 bg-[#0a0a0a] rounded-lg p-3 space-y-2">
-                <div className="flex items-center justify-between text-xs text-white"><span>Needs Me</span><span className="px-1 bg-red-500/20 text-red-400 rounded">7</span></div>
-                <div className="flex items-center justify-between text-xs text-[#a1a1aa]"><span>Waiting</span><span className="px-1 bg-white/10 rounded">11</span></div>
-                <div className="flex items-center justify-between text-xs text-[#a1a1aa]"><span>Following</span><span className="px-1 bg-white/10 rounded">18</span></div>
-              </div>
             </div>
 
-            {/* Feature 2 */}
-            <div className="bg-[#050505] border border-white/5 rounded-2xl p-6 flex flex-col hover:border-white/10 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6">
-                <Zap className="w-5 h-5 text-purple-400" />
+            <div className="bg-white border border-[#DDD4C8] rounded-2xl p-6 flex flex-col hover:border-[#C4A882] transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-[#EDE6DD] flex items-center justify-center mb-6">
+                <Zap className="w-5 h-5 text-[#A0845E]" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">AI that understands context</h3>
-              <p className="text-sm text-[#a1a1aa] leading-relaxed mb-6 flex-1">
-                Summaries, decisions, open questions, and blockers—so you spend less time reading.
+              <h3 className="text-base font-bold text-[#2C2825] mb-2">AI summaries</h3>
+              <p className="text-sm text-[#7A7472] leading-relaxed flex-1">
+                Decisions, open questions, and blockers summarized so you spend less time reading.
               </p>
-              <div className="border border-white/5 bg-[#0a0a0a] rounded-lg p-3 space-y-2">
-                <div className="text-[10px] font-bold text-[#52525b] uppercase">AI Summary</div>
-                <div className="flex gap-2 items-start text-xs text-white"><div className="w-1 h-1 rounded-full bg-white mt-1.5 shrink-0" />Issue caused by race condition</div>
-                <div className="flex gap-2 items-start text-xs text-white"><div className="w-1 h-1 rounded-full bg-white mt-1.5 shrink-0" />Fix proposed in #6201</div>
-                <div className="flex gap-2 items-start text-xs text-purple-400"><div className="w-1 h-1 rounded-full bg-purple-400 mt-1.5 shrink-0" />Needs review from @you</div>
-              </div>
             </div>
 
-            {/* Feature 3 */}
-            <div className="bg-[#050505] border border-white/5 rounded-2xl p-6 flex flex-col hover:border-white/10 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6">
-                <Code className="w-5 h-5 text-purple-400" />
+            <div className="bg-white border border-[#DDD4C8] rounded-2xl p-6 flex flex-col hover:border-[#C4A882] transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-[#EDE6DD] flex items-center justify-center mb-6">
+                <Code className="w-5 h-5 text-[#A0845E]" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Review faster</h3>
-              <p className="text-sm text-[#a1a1aa] leading-relaxed mb-6 flex-1">
-                See code, discussion, timeline, and review status together. No more tab switching.
+              <h3 className="text-base font-bold text-[#2C2825] mb-2">Review faster</h3>
+              <p className="text-sm text-[#7A7472] leading-relaxed flex-1">
+                See code, discussion, timeline, and status together. No tab switching.
               </p>
-              <div className="border border-white/5 bg-[#0a0a0a] rounded-lg p-3 space-y-1 font-mono text-[10px]">
-                <div className="text-[#a1a1aa]">@@ -1,3 +1,3 @@</div>
-                <div className="text-red-400 bg-red-500/10 px-1">- old_function()</div>
-                <div className="text-green-400 bg-green-500/10 px-1">+ new_function()</div>
-              </div>
             </div>
 
-            {/* Feature 4 */}
-            <div className="bg-[#050505] border border-white/5 rounded-2xl p-6 flex flex-col hover:border-white/10 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6">
-                <Zap className="w-5 h-5 text-purple-400" fill="currentColor" />
+            <div className="bg-white border border-[#DDD4C8] rounded-2xl p-6 flex flex-col hover:border-[#C4A882] transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-[#EDE6DD] flex items-center justify-center mb-6">
+                <Activity className="w-5 h-5 text-[#A0845E]" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Focus on what matters</h3>
-              <p className="text-sm text-[#a1a1aa] leading-relaxed mb-6 flex-1">
-                Prioritize your work by attention, not by repository. Ship more, stress less.
+              <h3 className="text-base font-bold text-[#2C2825] mb-2">Attention first</h3>
+              <p className="text-sm text-[#7A7472] leading-relaxed flex-1">
+                Work organized by priority, not by repository. Ship more, stress less.
               </p>
-              <div className="border border-white/5 bg-[#0a0a0a] rounded-lg p-3 space-y-2 mt-auto">
-                <div className="flex items-center justify-between text-xs text-white"><span>Needs Me</span><span className="px-1 bg-red-500/20 text-red-400 rounded">7</span></div>
-                <div className="flex items-center justify-between text-xs text-[#a1a1aa]"><span>Done</span><span className="px-1 bg-green-500/20 text-green-400 rounded">12</span></div>
-              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* CTA Footer */}
-      <footer className="py-24 border-t border-white/5 bg-[#050505]">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-8">Stop searching GitHub.<br/>Start organizing your work.</h2>
+      {/* 6. Built For */}
+      <section className="py-28 bg-[#EDE6DD]">
+        <div className="max-w-[1100px] mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="text-[#A0845E] text-sm font-semibold mb-3 uppercase tracking-wider">Built for</div>
+            <h2 className="text-3xl font-bold text-[#2C2825]">Developers who ship.</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Code, title: "Open Source Contributors", desc: "Contribute to multiple projects without losing track.", color: "text-blue-600" },
+              { icon: Users, title: "Maintainers", desc: "Know what needs your review and what can wait.", color: "text-[#A0845E]" },
+              { icon: Layers, title: "Engineering Teams", desc: "Stay on top of discussions, reviews, and decisions.", color: "text-[#8957e5]" },
+              { icon: Box, title: "Indie Developers", desc: "Manage personal projects without tab overload.", color: "text-[#8AB07A]" },
+            ].map((item, i) => (
+              <div key={i} className="bg-white border border-[#DDD4C8] rounded-2xl p-6">
+                <item.icon className={`w-7 h-7 mb-4 ${item.color}`} />
+                <h3 className="text-base font-bold text-[#2C2825] mb-2">{item.title}</h3>
+                <p className="text-sm text-[#7A7472]">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Open Source */}
+      <section className="py-20 bg-[#F5F0EB]">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-2xl font-bold text-[#2C2825] mb-8">Built for developers.</h2>
+          <div className="flex flex-wrap justify-center gap-6 text-base font-medium text-[#2C2825] mb-4">
+            <span className="flex items-center gap-2"><Check className="w-5 h-5 text-[#8AB07A]" /> Free forever.</span>
+            <span className="flex items-center gap-2"><Check className="w-5 h-5 text-[#8AB07A]" /> Open source.</span>
+            <span className="flex items-center gap-2"><Check className="w-5 h-5 text-[#8AB07A]" /> Community driven.</span>
+          </div>
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-[#8A8280]">
+            <span>No subscriptions.</span>
+            <span>No feature paywalls.</span>
+            <span>No artificial limits.</span>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. CTA */}
+      <section className="py-28 bg-[#2C2825]">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#F5F0EB] tracking-tight mb-4">Stop searching GitHub.</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-[#C4A882] tracking-tight mb-10">Start organizing your work.</h2>
           <button 
             onClick={onConnect}
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-purple-600 text-white font-semibold rounded-xl hover:bg-purple-500 transition-all text-lg shadow-[0_0_20px_rgba(147,51,234,0.4)] mx-auto mb-6"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#F5F0EB] text-[#2C2825] font-semibold rounded-xl hover:bg-white transition-colors text-lg mx-auto mb-4"
           >
             <Github className="w-5 h-5" />
             Continue with GitHub
           </button>
-          <p className="text-[#a1a1aa] font-medium text-sm">Free forever. Open Source.</p>
+          <p className="text-[#8A8280] font-medium text-sm">Free forever. Open Source.</p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-16 bg-[#F5F0EB] border-t border-[#DDD4C8]">
+        <div className="max-w-[1100px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-6 h-6 bg-[#2C2825] rounded flex items-center justify-center text-[#F5F0EB]"><Box className="w-4 h-4" /></div>
+              <span className="font-semibold text-[#2C2825]">GitTower</span>
+            </div>
+            <p className="text-sm text-[#8A8280]">The GitHub command center for developers.</p>
+          </div>
+          
+          <div>
+            <h4 className="text-[#2C2825] font-semibold mb-4 text-sm">Product</h4>
+            <ul className="space-y-2 text-sm text-[#8A8280]">
+              <li><a href="#" className="hover:text-[#A0845E]">Features</a></li>
+              <li><a href="#" className="hover:text-[#A0845E]">Roadmap</a></li>
+              <li><a href="#" className="hover:text-[#A0845E]">Documentation</a></li>
+              <li><a href="#" className="hover:text-[#A0845E]">Changelog</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-[#2C2825] font-semibold mb-4 text-sm">Community</h4>
+            <ul className="space-y-2 text-sm text-[#8A8280]">
+              <li><a href="#" className="hover:text-[#A0845E]">GitHub</a></li>
+              <li><a href="#" className="hover:text-[#A0845E]">Discord</a></li>
+              <li><a href="#" className="hover:text-[#A0845E]">Discussions</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-[#2C2825] font-semibold mb-4 text-sm">Resources</h4>
+            <ul className="space-y-2 text-sm text-[#8A8280]">
+              <li><a href="#" className="hover:text-[#A0845E]">Blog</a></li>
+              <li><a href="#" className="hover:text-[#A0845E]">Privacy</a></li>
+              <li><a href="#" className="hover:text-[#A0845E]">Terms</a></li>
+            </ul>
+          </div>
         </div>
       </footer>
     </div>
