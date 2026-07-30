@@ -1,14 +1,9 @@
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
-  // Use the origin from the request URL
-  const { origin } = new URL(req.url);
-  const redirectUri = `${origin}/auth/callback`;
-  
   const params = new URLSearchParams({
     client_id: process.env.GITHUB_CLIENT_ID || "",
     scope: "repo read:user user:email",
-    redirect_uri: redirectUri,
   });
   
   const url = `https://github.com/login/oauth/authorize?${params.toString()}`;

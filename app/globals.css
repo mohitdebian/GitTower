@@ -1,3 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-app-base: #0A0A0B;
+  --color-app-panel: #151518;
+  --color-app-sidebar: #1C1C21;
+  --color-app-header: #0D0D10;
+  --color-app-border: #26262C;
+  --color-app-text: #EDEDEF;
+  --color-app-muted: #9BA1A6;
+  --color-app-meta: #5C5C64;
+}
+
+body {
+  background-color: var(--color-app-base);
+  color: var(--color-app-text);
+}
