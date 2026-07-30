@@ -2,8 +2,8 @@ import type {Metadata} from 'next';
 import './globals.css'; // Global styles
 
 export const metadata: Metadata = {
-  title: 'My Google AI Studio App',
-  description: 'My Google AI Studio App',
+  title: 'GitTower | GitHub Command Center',
+  description: 'GitTower is the ultimate GitHub command center for developers. Zero context switching.',
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
