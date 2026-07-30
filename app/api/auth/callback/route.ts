@@ -17,10 +17,11 @@ export async function GET(req: Request) {
     return new NextResponse("Internal server error", { status: 500 });
   }
 
-  // Handle Vercel deployments
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : url.protocol;
-  const host = process.env.VERCEL_URL || url.host;
-  const redirectUri = `${protocol}://${host}/api/auth/callback`;
+  // Use APP_URL if set, otherwise fall back to Vercel production URL, then request host
+  const baseUrl = process.env.APP_URL 
+    || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : null)
+    || `${url.protocol}//${url.host}`;
+  const redirectUri = `${baseUrl}/api/auth/callback`;
 
   try {
     const response = await fetch("https://github.com/login/oauth/access_token", {
