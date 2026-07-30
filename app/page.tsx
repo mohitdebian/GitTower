@@ -60,7 +60,7 @@ const processMarkdownMentions = (text: string | undefined | null) => {
   return tokens.join('');
 };
 
-export const createMarkdownLinkRenderer = (handleRelatedIssueClick: (num: string | number, baseUrl: string) => void, baseRepoUrl?: string) => (props: any) => {
+const createMarkdownLinkRenderer = (handleRelatedIssueClick: (num: string | number, baseUrl: string) => void, baseRepoUrl?: string) => (props: any) => {
   const { href, children, ...rest } = props;
   
   if (href?.startsWith('mention://')) {
