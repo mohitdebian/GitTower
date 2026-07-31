@@ -43,7 +43,17 @@ export async function GET(req: Request) {
         const data = await res.json();
         const runs = data.workflow_runs || [];
         
+        const latestRunsMap = new Map<string, any>();
         runs.forEach((run: any) => {
+          const key = `${run.workflow_id}_${run.head_branch}`;
+          if (!latestRunsMap.has(key)) {
+            latestRunsMap.set(key, run);
+          }
+        });
+
+        const uniqueRuns = Array.from(latestRunsMap.values());
+        
+        uniqueRuns.forEach((run: any) => {
           // Skip runs older than 24 hours to avoid stale data
           const isStale = (new Date().getTime() - new Date(run.created_at).getTime()) > 24 * 60 * 60 * 1000;
           if (isStale) return;
