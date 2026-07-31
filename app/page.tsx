@@ -270,11 +270,14 @@ export default function Home() {
     setDoneItems(prev => ({ ...prev, [id]: updatedAt }));
   };
 
-  const filterItems = (items: GitHubIssue[]) => items.filter(item => {
+  const filterItems = (items: GitHubIssue[], ignoreDone: boolean = false) => items.filter(item => {
     if (mutedRepos[extractRepoName(item.repository_url)]) return false;
-    const doneUpdatedAt = doneItems[item.id];
-    if (doneUpdatedAt && new Date(doneUpdatedAt).getTime() >= new Date(item.updated_at).getTime()) {
-      return false;
+    
+    if (!ignoreDone) {
+      const doneUpdatedAt = doneItems[item.id];
+      if (doneUpdatedAt && new Date(doneUpdatedAt).getTime() >= new Date(item.updated_at).getTime()) {
+        return false;
+      }
     }
     return true;
   });
@@ -926,7 +929,7 @@ export default function Home() {
           {(() => {
             const getCount = (key: keyof DashboardData) => {
               if (!data) return 0;
-              return filterItems(data[key]).length;
+              return filterItems(data[key], key === 'myPrs').length;
             };
             const inboxCount = getCount('reviewRequested') + getCount('mentions') + getCount('assigned');
             
@@ -2009,7 +2012,7 @@ export default function Home() {
                   id="my-prs"
                   title="Your Pull Requests" 
                   icon={<GitMerge className="w-5 h-5 text-purple-500" />} 
-                  items={filterItems(data.myPrs)} 
+                  items={filterItems(data.myPrs, true)} 
                   emptyMessage="You don't have any open pull requests."
                   extractRepoName={extractRepoName}
                   onItemSelected={handleItemSelected}
