@@ -926,7 +926,7 @@ export default function Home() {
           {(() => {
             const getCount = (key: keyof DashboardData) => {
               if (!data) return 0;
-              return data[key].filter(item => !mutedRepos[extractRepoName(item.repository_url)]).length;
+              return filterItems(data[key]).length;
             };
             const inboxCount = getCount('reviewRequested') + getCount('mentions') + getCount('assigned');
             
