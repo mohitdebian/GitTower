@@ -74,9 +74,9 @@ export async function GET(req: Request) {
             actor_avatar: run.actor?.avatar_url || ''
           };
 
-          if (run.status === "in_progress" || run.status === "queued" || run.status === "waiting") {
+          if (run.status === "in_progress" || run.status === "queued" || run.status === "waiting" || run.conclusion === "action_required") {
             active.push(runData);
-          } else if (run.status === "completed" && (run.conclusion === "failure" || run.conclusion === "timed_out" || run.conclusion === "action_required" || run.conclusion === "cancelled")) {
+          } else if (run.status === "completed" && (run.conclusion === "failure" || run.conclusion === "timed_out" || run.conclusion === "cancelled")) {
             failed.push(runData);
           }
         });

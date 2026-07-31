@@ -81,7 +81,7 @@ export async function GET(req: Request) {
         app_name: run.app?.name || 'GitHub Actions'
       };
 
-      if (run.status === "completed") {
+      if (run.status === "completed" && run.conclusion !== "action_required") {
         if (run.conclusion === "skipped") {
           skipped_runs.push(runData);
         } else if (run.conclusion === "success" || run.conclusion === "neutral") {
