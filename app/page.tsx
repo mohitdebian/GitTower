@@ -1981,7 +1981,7 @@ export default function Home() {
             </div>
           ) : data ? (
             <div className="space-y-12">
-              {(activeView === 'reviews') && (
+              {(activeView === 'inbox' || activeView === 'reviews') && (
                 <Section 
                   id="reviews"
                   title="Review Requests" 
@@ -2007,7 +2007,7 @@ export default function Home() {
                   onMarkDone={handleMarkDone}
                 />
               )}
-              {(activeView === 'inbox' || activeView === 'my-prs') && (
+              {(activeView === 'my-prs') && (
                 <Section 
                   id="my-prs"
                   title="Your Pull Requests" 
@@ -2020,7 +2020,7 @@ export default function Home() {
                   onMarkDone={handleMarkDone}
                 />
               )}
-              {(activeView === 'inbox' || activeView === 'involved') && (
+              {(activeView === 'involved') && (
                 <Section 
                   id="involved"
                   title="Involved Discussions" 
