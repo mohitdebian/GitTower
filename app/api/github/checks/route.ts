@@ -43,8 +43,21 @@ export async function GET(req: Request) {
     const checksData = await checksRes.json();
 
     // Calculate summary
-    const total = checksData.total_count || 0;
-    const runs = checksData.check_runs || [];
+    const rawRuns = checksData.check_runs || [];
+    
+    // Deduplicate runs by name (keep the latest one)
+    const latestRunsMap = new Map<string, any>();
+    // Sort by id descending to process newest first
+    const sortedRuns = [...rawRuns].sort((a, b) => b.id - a.id);
+    sortedRuns.forEach((run) => {
+      const key = `${run.app?.name || 'GitHub Actions'} / ${run.name}`;
+      if (!latestRunsMap.has(key)) {
+        latestRunsMap.set(key, run);
+      }
+    });
+
+    const runs = Array.from(latestRunsMap.values());
+    const total = runs.length;
     
     let failed = 0;
     let pending = 0;
