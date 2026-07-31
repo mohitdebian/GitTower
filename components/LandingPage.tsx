@@ -4,487 +4,507 @@ import {
   ArrowRight, 
   Github, 
   Check, 
-  MessageSquare, 
-  GitPullRequest, 
+  X,
   Search, 
   Zap, 
-  Users, 
   Box, 
-  Code, 
-  GitMerge,
-  Heart,
+  ChevronDown,
+  Target,
+  Sparkles,
+  Lock,
+  MessageSquare,
+  MessageCircle,
+  GitPullRequest,
   Activity,
   Layers,
   Inbox,
-  LayoutTemplate,
-  ArrowDown
+  LayoutTemplate
 } from 'lucide-react';
 
 export default function LandingPage({ onConnect }: { onConnect: () => void }) {
   return (
-    <div className="min-h-screen bg-[#1A1714] text-[#A09A90] font-sans overflow-x-hidden selection:bg-[#C4A882]/20 selection:text-[#E8E0D4]">
+    <div className="min-h-screen bg-[#06080C] text-slate-400 font-sans overflow-x-hidden selection:bg-blue-500/30 selection:text-white">
       
       {/* Navbar */}
-      <nav className="fixed top-0 inset-x-0 h-16 border-b border-[#2A2520] bg-[#1A1714]/90 backdrop-blur-md z-50 flex items-center px-6 lg:px-12 justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-[#C4A882] flex items-center justify-center text-[#1A1714]">
-            <Box className="w-5 h-5" />
+      <nav className="absolute top-0 inset-x-0 h-24 flex items-center px-8 lg:px-12 justify-between z-50 max-w-[1400px] mx-auto">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-[#1E293B] flex items-center justify-center border border-slate-700/50">
+            <Box className="w-5 h-5 text-blue-500" />
           </div>
-          <span className="font-semibold text-[#E8E0D4] text-lg tracking-tight">GitTower</span>
+          <span className="font-semibold text-white text-xl tracking-tight">GitTower</span>
         </div>
         
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#6E685E]">
-          <a href="#" className="text-[#E8E0D4] hover:text-[#C4A882] transition-colors">Features</a>
-          <a href="#" className="hover:text-[#E8E0D4] transition-colors">How it Works</a>
-          <a href="#" className="hover:text-[#E8E0D4] transition-colors">Roadmap</a>
-          <a href="#" className="hover:text-[#E8E0D4] transition-colors">Docs</a>
-          <a href="#" className="hover:text-[#E8E0D4] transition-colors">GitHub</a>
+        <div className="hidden md:flex items-center gap-10 text-sm font-medium text-slate-300">
+          <a href="#why-gittower" className="hover:text-white transition-colors">Why GitTower</a>
+          <a href="#how-it-works" className="hover:text-white transition-colors">How it Works</a>
+          <a href="#roadmap" className="hover:text-white transition-colors">Roadmap</a>
+          <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+          <div className="flex items-center gap-6 ml-4">
+            <button 
+              onClick={onConnect}
+              className="text-sm font-semibold px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors text-white flex items-center gap-2 shadow-lg shadow-blue-500/20"
+            >
+              <Github className="w-4 h-4" />
+              Continue with GitHub
+            </button>
+          </div>
         </div>
-
-        <button 
-          onClick={onConnect}
-          className="text-sm font-medium px-4 py-2 rounded-lg bg-[#C4A882] hover:bg-[#D4B892] transition-colors text-[#1A1714] flex items-center gap-2"
-        >
-          <Github className="w-4 h-4" />
-          <span className="hidden sm:inline">Sign in with GitHub</span>
-          <span className="sm:hidden">Sign in</span>
-        </button>
       </nav>
 
       {/* 1. Hero Section */}
-      <main className="pt-32 pb-24 px-6 lg:px-12 max-w-[1300px] mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <main className="pt-32 pb-24 px-8 lg:px-12 max-w-[1400px] mx-auto relative min-h-[90vh] flex items-center">
+        
+        {/* Background Gradients */}
+        <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="flex flex-col w-full relative z-10">
           
-          {/* Hero Left */}
-          <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2A2520] border border-[#3A3430] text-[#C4A882] text-xs font-medium mb-8">
-              <Heart className="w-3 h-3" />
-              Free forever. Open Source.
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-[#E8E0D4] tracking-tight leading-[1.15] mb-6">
-              GitHub organizes repositories.<br/>
-              <span className="text-[#C4A882]">GitTower organizes your work.</span>
-            </h1>
-            <p className="text-lg text-[#8A8478] leading-relaxed mb-10 max-w-xl">
-              Pull requests, issues, reviews, mentions, and discussions—all in one place. Know exactly what needs your attention and ship your best work.
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24 items-center w-full mt-16 mb-12">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="flex flex-col justify-center lg:pr-12">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-200 tracking-tight leading-[1.15] max-w-2xl">
+                Review a PR. Check a build. Find a mention. <br/>
+                <span className="text-slate-400 text-3xl md:text-4xl lg:text-5xl block mt-4">Your GitHub is scattered across 20 open tabs.</span>
+              </h1>
+              
+              <p className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-xl mt-8">
+                You're losing hours every week jumping between different repositories, refreshing CI pipelines, and hunting down notifications just to figure out what you need to do next.
+              </p>
+            </motion.div>
+
+            {/* Hero Right Mockup (Stack of Tabs) */}
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ duration: 1, delay: 0.3 }}
+              className="relative h-[450px] hidden lg:block"
+            >
+              {/* We create a stack of floating browser windows fading out */}
+              {[
+                { top: "0px", right: "20px", opacity: 0.2, scale: 0.85, title: "inbox - mohitdebian" },
+                { top: "40px", right: "60px", opacity: 0.4, scale: 0.9, title: "Pull requests - QwenPaw" },
+                { top: "80px", right: "100px", opacity: 0.6, scale: 0.95, title: "Review request for #662" },
+                { top: "120px", right: "140px", opacity: 0.8, scale: 0.98, title: "CI / Tests failed - QwenPaw" },
+                { top: "160px", right: "180px", opacity: 1, scale: 1, title: "Issues - alondemarc/QwenPaw", z: 10 },
+                { top: "200px", right: "120px", opacity: 0.9, scale: 1.02, title: "Dependabot alerts", z: 20 },
+                { top: "240px", right: "60px", opacity: 0.8, scale: 1.05, title: "Workflow run - Deploy Preview", z: 30 },
+                { top: "280px", right: "0px", opacity: 0.7, scale: 1.08, title: "React - Pull Request #842", z: 40 },
+              ].map((tab, i) => (
+                <div 
+                  key={i}
+                  className="absolute w-[450px] bg-[#0D1117] border border-slate-700/60 rounded-xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+                  style={{ 
+                    top: tab.top, 
+                    right: tab.right, 
+                    opacity: tab.opacity, 
+                    transform: `scale(${tab.scale})`,
+                    zIndex: tab.z || i
+                  }}
+                >
+                  <div className="h-10 bg-[#161B22] border-b border-slate-800 flex items-center px-4 gap-3">
+                    <Github className="w-4 h-4 text-slate-400" />
+                    <span className="text-xs font-medium text-slate-300 truncate flex-1">{tab.title}</span>
+                    <X className="w-4 h-4 text-slate-500" />
+                  </div>
+                  <div className="h-24 p-4 opacity-30">
+                    <div className="h-2 w-3/4 bg-slate-700 rounded mb-3" />
+                    <div className="h-2 w-1/2 bg-slate-700 rounded mb-3" />
+                    <div className="h-2 w-5/6 bg-slate-700 rounded" />
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Solution Statement & CTA (Moved Below) */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="flex flex-col items-center text-center mt-8">
+            <div className="text-3xl text-slate-600 font-bold mb-8 tracking-widest animate-pulse">...</div>
+            
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-[1.1] mb-6 max-w-2xl">
+              GitTower brings it all into one.
+            </h2>
+            
+            <p className="text-base md:text-lg text-slate-400 leading-relaxed mb-10 max-w-2xl mx-auto">
+              Stop context switching. All your pull requests, reviews, discussions, issues, and workflows—organized into a single dashboard around what matters right now.
             </p>
-            <div className="flex flex-col items-start gap-4">
+            
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6 justify-center">
               <button 
                 onClick={onConnect}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#C4A882] hover:bg-[#D4B892] text-[#1A1714] font-medium rounded-xl transition-colors text-lg group"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all text-lg shadow-[0_0_40px_-10px_rgba(59,130,246,0.6)] hover:shadow-[0_0_60px_-10px_rgba(59,130,246,0.8)] hover:-translate-y-1 group"
               >
-                <Github className="w-5 h-5" />
+                <Github className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 Continue with GitHub 
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <p className="text-xs text-[#6E685E] font-medium tracking-wide pl-2">
-                No setup required. Start in seconds.
-              </p>
+              <span className="flex items-center gap-2 text-sm text-slate-400 font-medium bg-slate-800/30 px-4 py-2 rounded-full border border-slate-700/50">
+                <Check className="w-4 h-4 text-emerald-400" /> Free forever. No credit card.
+              </span>
             </div>
           </motion.div>
-
-          {/* Hero Right Mockup */}
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="rounded-2xl border border-[#2A2520] bg-[#141210] shadow-2xl overflow-hidden flex flex-col md:flex-row h-[480px]">
-              
-              {/* Mockup Sidebar */}
-              <div className="w-full md:w-52 border-r border-[#2A2520] bg-[#1A1714] p-4 hidden md:flex flex-col gap-5 shrink-0">
-                <div className="flex items-center gap-2 mb-1 px-1">
-                   <Box className="w-5 h-5 text-[#C4A882]" />
-                   <span className="text-[#E8E0D4] font-semibold text-sm">GitTower</span>
-                </div>
-                
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between p-2 rounded-lg text-[#6E685E] hover:bg-[#222018] cursor-pointer text-sm">
-                    <div className="flex items-center gap-3"><LayoutTemplate className="w-4 h-4" /> Home</div>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg bg-[#C4A882]/10 text-[#C4A882] cursor-pointer text-sm font-medium">
-                    <div className="flex items-center gap-3"><Inbox className="w-4 h-4" /> Needs Me</div>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#C4A882]/20 text-[#C4A882]">7</span>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg text-[#6E685E] hover:bg-[#222018] cursor-pointer text-sm">
-                    <div className="flex items-center gap-3"><Activity className="w-4 h-4" /> Waiting</div>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#2A2520] text-[#8A8478]">11</span>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg text-[#6E685E] hover:bg-[#222018] cursor-pointer text-sm">
-                    <div className="flex items-center gap-3"><Search className="w-4 h-4" /> Following</div>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#2A2520] text-[#8A8478]">18</span>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg text-[#6E685E] hover:bg-[#222018] cursor-pointer text-sm">
-                    <div className="flex items-center gap-3"><Check className="w-4 h-4" /> Done</div>
-                  </div>
-                </div>
-
-                <div className="mt-auto space-y-1">
-                  <div className="text-[11px] font-bold text-[#4A4438] uppercase tracking-wider px-2 mb-2">Repos</div>
-                  <div className="flex items-center gap-2 px-2 text-[#6E685E] text-xs"><div className="w-3 h-3 rounded-full bg-[#2A2520]" /> facebook/react</div>
-                  <div className="flex items-center gap-2 px-2 text-[#6E685E] text-xs"><div className="w-3 h-3 rounded-full bg-[#2A2520]" /> rust-lang/rust</div>
-                  <div className="flex items-center gap-2 px-2 text-[#6E685E] text-xs"><div className="w-3 h-3 rounded-full bg-[#2A2520]" /> vercel/next.js</div>
-                </div>
-              </div>
-              
-              {/* Mockup Content */}
-              <div className="flex-1 bg-[#141210] flex flex-col">
-                <div className="h-12 border-b border-[#2A2520] px-5 flex items-center">
-                  <div className="w-full max-w-xs h-7 bg-[#1A1714] border border-[#2A2520] rounded-md flex items-center px-3">
-                    <Search className="w-3 h-3 text-[#4A4438] mr-2" />
-                    <span className="text-xs text-[#4A4438]">Search...</span>
-                  </div>
-                </div>
-                
-                <div className="flex-1 p-5 overflow-hidden">
-                  <div className="flex items-center justify-between mb-5">
-                    <h3 className="text-[#E8E0D4] font-semibold text-sm flex items-center gap-2">
-                      Needs Me <span className="w-5 h-5 rounded-full bg-[#C4A882] text-[#1A1714] text-[10px] flex items-center justify-center font-bold">7</span>
-                    </h3>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#1A1714] border border-[#2A2520]">
-                      <div className="w-7 h-7 rounded-full bg-[#2A2520] shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-medium text-[#E8E0D4] truncate">Review React PR</h4>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[9px] px-1 py-0.5 rounded bg-[#C4A882]/10 text-[#C4A882] border border-[#C4A882]/20 font-medium">PR</span>
-                          <span className="text-[10px] text-[#4A4438]">facebook/react</span>
-                        </div>
-                      </div>
-                      <span className="text-[10px] text-[#4A4438] shrink-0">5m</span>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#1A1714] border border-[#2A2520]">
-                      <div className="w-7 h-7 rounded-full bg-[#2A2520] shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-medium text-[#E8E0D4] truncate">Reply to discussion</h4>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[9px] px-1 py-0.5 rounded bg-[#7A9EC4]/10 text-[#7A9EC4] border border-[#7A9EC4]/20 font-medium">DISC</span>
-                          <span className="text-[10px] text-[#4A4438]">rust-lang/rust</span>
-                        </div>
-                      </div>
-                      <span className="text-[10px] text-[#4A4438] shrink-0">30m</span>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#1A1714] border border-[#2A2520]">
-                      <div className="w-7 h-7 rounded-full bg-[#2A2520] shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-medium text-[#E8E0D4] truncate">CI passed — Ready to merge</h4>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[9px] px-1 py-0.5 rounded bg-[#8AAF7A]/10 text-[#8AAF7A] border border-[#8AAF7A]/20 font-medium">PR</span>
-                          <span className="text-[10px] text-[#4A4438]">vercel/next.js</span>
-                        </div>
-                      </div>
-                      <span className="text-[10px] text-[#4A4438] shrink-0">1h</span>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#1A1714] border border-[#2A2520]">
-                      <div className="w-7 h-7 rounded-full bg-[#2A2520] shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-medium text-[#E8E0D4] truncate">Answer maintainer question</h4>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[9px] px-1 py-0.5 rounded bg-[#C49A6E]/10 text-[#C49A6E] border border-[#C49A6E]/20 font-medium">ISSUE</span>
-                          <span className="text-[10px] text-[#4A4438]">pixijs/pixi.js</span>
-                        </div>
-                      </div>
-                      <span className="text-[10px] text-[#4A4438] shrink-0">2h</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          
         </div>
       </main>
 
-      {/* 2. The Problem */}
-      <section className="py-28 bg-[#141210]">
-        <div className="max-w-[1300px] mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-16 items-center">
+      {/* 2. This is GitTower Section */}
+      <section id="why-gittower" className="py-32 relative z-20">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 grid lg:grid-cols-[1fr_2fr] gap-16 items-center">
+          
           <div>
-            <div className="text-[#C4A882] text-sm font-semibold mb-3 uppercase tracking-wider">The problem</div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#E8E0D4] mb-6 leading-tight">Your work is everywhere.<br/>Your focus shouldn't be.</h2>
-            <p className="text-[#8A8478] text-lg leading-relaxed max-w-md">
-              Juggling multiple repositories, notifications, and conversations makes it hard to stay focused and ship your best work.
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              This is<br/>
+              <span className="text-blue-500">GitTower.</span>
+            </h2>
+            <p className="text-xl text-slate-400 leading-relaxed max-w-sm">
+              One workspace.<br/>
+              Everything that needs your attention.
             </p>
           </div>
-          
-          {/* Flowchart */}
-          <div className="bg-[#1A1714] border border-[#2A2520] rounded-2xl p-8 flex items-center justify-between">
-            {[
-              { icon: Github, label: "Notifications", count: "23" },
-              { icon: Layers, label: "Repos", count: "6" },
-              { icon: GitPullRequest, label: "PRs", count: "6" },
-              { icon: MessageSquare, label: "Mentions", count: "5" },
-            ].map((item, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && <ArrowRight className="w-4 h-4 text-[#2A2520] shrink-0 hidden sm:block" />}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-11 h-11 rounded-full bg-[#222018] border border-[#2A2520] flex items-center justify-center relative">
-                    <item.icon className="w-5 h-5 text-[#6E685E]" />
-                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-[#B5705A] rounded-full flex items-center justify-center text-[9px] text-white font-bold">{item.count}</div>
-                  </div>
-                  <span className="text-[10px] text-[#6E685E] text-center">{item.label}</span>
+
+          {/* Big App Mockup */}
+          <div className="relative">
+            <div className="rounded-2xl border border-slate-800 bg-[#0A0D14] shadow-2xl overflow-hidden flex flex-col md:flex-row h-[600px]">
+              
+              {/* Sidebar */}
+              <div className="w-full md:w-56 border-r border-slate-800/80 bg-[#06080C] p-4 hidden md:flex flex-col gap-6 shrink-0">
+                <div className="flex items-center gap-2 mb-2 px-2">
+                   <div className="w-6 h-6 rounded border border-slate-700 bg-slate-800 flex items-center justify-center"><Box className="w-3.5 h-3.5 text-blue-500" /></div>
+                   <span className="text-white font-semibold text-sm tracking-wide">GitTower</span>
                 </div>
-              </React.Fragment>
-            ))}
-            <ArrowRight className="w-4 h-4 text-[#2A2520] shrink-0 hidden sm:block" />
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-11 h-11 rounded-full bg-[#B5705A]/10 border border-[#B5705A]/20 flex items-center justify-center text-[#B5705A] font-bold text-lg">
-                ?
+                
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between p-2 rounded-lg text-slate-400 text-sm">
+                    <div className="flex items-center gap-3"><Inbox className="w-4 h-4" /> Inbox</div>
+                    <span className="text-[10px] px-1.5 rounded-full bg-slate-800 text-slate-400">9</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg text-slate-400 text-sm">
+                    <div className="flex items-center gap-3"><Search className="w-4 h-4" /> Review Requests</div>
+                    <span className="text-[10px] px-1.5 rounded-full bg-slate-800 text-slate-400">1</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg text-slate-400 text-sm">
+                    <div className="flex items-center gap-3"><Activity className="w-4 h-4" /> Mentions</div>
+                    <span className="text-[10px] px-1.5 rounded-full bg-slate-800 text-slate-400">7</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-slate-800/50 text-white font-medium text-sm border border-slate-700/50">
+                    <div className="flex items-center gap-3"><GitPullRequest className="w-4 h-4 text-blue-400" /> My Pull Requests</div>
+                    <span className="text-[10px] px-1.5 rounded-full bg-blue-500/20 text-blue-400">7</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg text-slate-400 text-sm">
+                    <div className="flex items-center gap-3"><Layers className="w-4 h-4" /> Involved</div>
+                    <span className="text-[10px] px-1.5 rounded-full bg-slate-800 text-slate-400">15</span>
+                  </div>
+                </div>
+                
+                <div className="mt-auto flex items-center gap-3 px-2">
+                  <div className="w-7 h-7 rounded-full bg-slate-700 shrink-0" />
+                  <div className="text-xs text-white font-medium">Mohit Singh</div>
+                </div>
               </div>
-              <span className="text-[10px] text-[#B5705A] font-medium text-center leading-tight">Where do<br/>I start?</span>
+              
+              {/* Main Content */}
+              <div className="flex-1 bg-[#0A0D14] flex flex-col p-8 overflow-hidden">
+                <div className="flex justify-between items-start mb-8">
+                  <div>
+                    <h1 className="text-2xl font-bold text-white mb-2">Good morning, Mohit 👋</h1>
+                    <p className="text-slate-400 text-sm">Here's what's happening with your work.</p>
+                  </div>
+                  <div className="px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 rounded-lg text-xs text-slate-300 flex items-center gap-2">
+                    All Repositories <ChevronDown className="w-3 h-3" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-4 gap-4 mb-8">
+                  <div className="bg-slate-900/50 border border-slate-800 p-4 rounded-xl">
+                    <div className="flex items-center gap-2 text-blue-400 text-xs font-medium mb-2"><Inbox className="w-3 h-3" /> Needs Me</div>
+                    <div className="text-2xl font-bold text-white mb-1">12</div>
+                    <div className="text-[10px] text-slate-500">Items require your action</div>
+                  </div>
+                  <div className="bg-slate-900/50 border border-slate-800 p-4 rounded-xl">
+                    <div className="flex items-center gap-2 text-purple-400 text-xs font-medium mb-2"><Activity className="w-3 h-3" /> Waiting On</div>
+                    <div className="text-2xl font-bold text-white mb-1">7</div>
+                    <div className="text-[10px] text-slate-500">Waiting for others</div>
+                  </div>
+                  <div className="bg-slate-900/50 border border-slate-800 p-4 rounded-xl">
+                    <div className="flex items-center gap-2 text-emerald-400 text-xs font-medium mb-2"><Zap className="w-3 h-3" /> Active Work</div>
+                    <div className="text-2xl font-bold text-white mb-1">5</div>
+                    <div className="text-[10px] text-slate-500">Currently running</div>
+                  </div>
+                  <div className="bg-slate-900/50 border border-slate-800 p-4 rounded-xl">
+                    <div className="flex items-center gap-2 text-red-400 text-xs font-medium mb-2"><X className="w-3 h-3" /> Blocked</div>
+                    <div className="text-2xl font-bold text-white mb-1">3</div>
+                    <div className="text-[10px] text-slate-500">Needs attention</div>
+                  </div>
+                </div>
+
+                <div className="flex gap-6 h-full">
+                  <div className="flex-1 bg-[#0D1117] border border-slate-800 rounded-xl p-5">
+                    <h3 className="text-white font-medium text-sm mb-4">Active Work</h3>
+                    <div className="space-y-4">
+                      {/* Active Work Items */}
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-slate-800 shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className="text-white font-medium">QwenPaw / <span className="text-slate-400 font-normal">Tests</span></span>
+                            <span className="text-slate-500">CI</span>
+                          </div>
+                          <div className="h-1 bg-slate-800 rounded-full mb-1"><div className="h-full w-2/3 bg-blue-500 rounded-full"></div></div>
+                          <div className="flex justify-between text-[10px] text-slate-500">
+                            <span>11m</span>
+                            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-yellow-400" /> Running • 14m</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-slate-800 shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className="text-white font-medium">GitTower / <span className="text-slate-400 font-normal">Deploy Preview</span></span>
+                            <span className="text-slate-500">Deploy</span>
+                          </div>
+                          <div className="h-1 bg-slate-800 rounded-full mb-1"><div className="h-full w-1/4 bg-blue-500 rounded-full"></div></div>
+                          <div className="flex justify-between text-[10px] text-slate-500">
+                            <span>52s</span>
+                            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-yellow-400" /> Running • 4m</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Sidebar Mock */}
+                  <div className="w-56 flex flex-col gap-4">
+                    <div className="bg-[#0D1117] border border-slate-800 rounded-xl p-4">
+                      <div className="flex items-center gap-2 text-purple-400 text-xs font-medium mb-3"><Sparkles className="w-3 h-3" /> Insight</div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed mb-3">
+                        Your PR in QwenPaw is blocked due to failing Ubuntu tests.<br/><br/>
+                        Contract tests passed.
+                      </p>
+                      <span className="text-[10px] text-slate-500 hover:text-white transition-colors cursor-pointer flex items-center gap-1">View Details <ArrowRight className="w-3 h-3"/></span>
+                    </div>
+
+                    <div className="bg-[#0D1117] border border-slate-800 rounded-xl p-4 flex-1">
+                      <h3 className="text-white font-medium text-sm mb-4">Timeline</h3>
+                      <div className="relative pl-3 space-y-3 before:absolute before:inset-y-1 before:left-[4px] before:w-px before:bg-slate-800">
+                        <div className="relative flex items-center gap-3 text-[10px]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-600 z-10 -ml-[13.5px]" />
+                          <span className="text-slate-500 w-6">10:12</span>
+                          <span className="text-slate-400 truncate">PR #6526 opened</span>
+                        </div>
+                        <div className="relative flex items-center gap-3 text-[10px]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-600 z-10 -ml-[13.5px]" />
+                          <span className="text-slate-500 w-6">10:18</span>
+                          <span className="text-slate-400 truncate">CI started</span>
+                        </div>
+                        <div className="relative flex items-center gap-3 text-[10px]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-red-500 z-10 -ml-[13.5px]" />
+                          <span className="text-slate-500 w-6">10:24</span>
+                          <span className="text-red-400 truncate">5 jobs failed</span>
+                        </div>
+                        <div className="relative flex items-center gap-3 text-[10px]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)] z-10 -ml-[13.5px]" />
+                          <span className="text-slate-500 w-6">10:32</span>
+                          <span className="text-blue-400 truncate font-medium">CI restarted</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* 3. Why GitTower (Comparison) */}
-      <section className="py-28 bg-[#1A1714]">
-        <div className="max-w-[1300px] mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-16 items-center">
+      {/* 3. Problem vs Solution */}
+      <section id="how-it-works" className="py-24">
+        <div className="max-w-[1200px] mx-auto px-8 lg:px-12 grid md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
           
-          <div className="lg:col-span-4">
-            <div className="text-[#C4A882] text-sm font-semibold mb-3 uppercase tracking-wider">Why GitTower</div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#6E685E] mb-2 leading-tight">GitHub tells you what happened.</h2>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#E8E0D4] leading-tight">GitTower tells you what to do.</h2>
-          </div>
-
-          <div className="lg:col-span-8 flex flex-col md:flex-row items-stretch gap-6 w-full">
+          {/* Problem */}
+          <div className="bg-[#0A0D14] border border-slate-800/80 rounded-3xl p-10 relative overflow-hidden h-[420px] shadow-2xl">
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold text-white mb-8">The problem</h3>
+              <ul className="space-y-5">
+                <li className="flex items-center gap-4 text-slate-400 text-[15px]"><X className="w-5 h-5 text-red-500 shrink-0"/> Too many tabs</li>
+                <li className="flex items-center gap-4 text-slate-400 text-[15px]"><X className="w-5 h-5 text-red-500 shrink-0"/> Too much context switching</li>
+                <li className="flex items-center gap-4 text-slate-400 text-[15px]"><X className="w-5 h-5 text-red-500 shrink-0"/> Important things get missed</li>
+                <li className="flex items-center gap-4 text-slate-400 text-[15px]"><X className="w-5 h-5 text-red-500 shrink-0"/> Hard to know what to do next</li>
+                <li className="flex items-center gap-4 text-slate-400 text-[15px]"><X className="w-5 h-5 text-red-500 shrink-0"/> Work is scattered everywhere</li>
+              </ul>
+            </div>
             
-            {/* GitHub Card */}
-            <div className="flex-1 bg-[#141210] border border-[#2A2520] rounded-2xl p-6">
-              <h3 className="text-lg font-semibold text-[#E8E0D4] mb-6">GitHub</h3>
-              <div className="space-y-5">
-                {[
-                  { icon: MessageSquare, text: "Sarah commented" },
-                  { icon: Search, text: "Review requested" },
-                  { icon: Check, text: "CI passed" },
-                  { icon: Activity, text: "Mentioned you" },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4 text-[#8A8478]">
-                    <div className="w-6 h-6 rounded-full bg-[#222018] flex items-center justify-center shrink-0">
-                      <item.icon className="w-3 h-3 text-[#6E685E]" />
-                    </div>
-                    <span className="text-sm">{item.text}</span>
-                  </div>
-                ))}
-                <div className="flex items-center gap-4 text-[#8A8478]">
-                  <div className="w-6 h-6 rounded-full bg-[#B5705A] flex items-center justify-center shrink-0">
-                    <span className="text-[10px] text-white font-bold">!</span>
-                  </div>
-                  <span className="text-sm">14 notifications</span>
-                </div>
+            {/* Background Blur Graphic */}
+            <div className="absolute -right-12 top-1/2 -translate-y-1/2 opacity-20 blur-[2px] scale-110 pointer-events-none select-none mix-blend-screen">
+              <div className="w-64 space-y-3">
+                <div className="h-10 bg-slate-800 rounded-lg border border-slate-700 flex items-center px-4"><div className="w-24 h-2 bg-slate-600 rounded" /></div>
+                <div className="h-10 bg-slate-800 rounded-lg border border-slate-700 flex items-center px-4"><div className="w-32 h-2 bg-slate-600 rounded" /></div>
+                <div className="h-10 bg-slate-800 rounded-lg border border-slate-700 flex items-center px-4"><div className="w-20 h-2 bg-slate-600 rounded" /></div>
+                <div className="h-10 bg-slate-800 rounded-lg border border-slate-700 flex items-center px-4"><div className="w-28 h-2 bg-slate-600 rounded" /></div>
               </div>
             </div>
-
-            <div className="hidden md:flex flex-col justify-center gap-5">
-              {[1,2,3,4,5].map(i => <ArrowRight key={i} className="w-4 h-4 text-[#2A2520]" />)}
-            </div>
-
-            {/* GitTower Card */}
-            <div className="flex-1 bg-[#C4A882]/5 border border-[#C4A882]/20 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold text-[#C4A882] mb-6">GitTower</h3>
-              <div className="space-y-5">
-                {[
-                  { icon: MessageSquare, text: "Sarah is waiting for your reply" },
-                  { icon: Search, text: "Needs your review" },
-                  { icon: GitMerge, text: "Ready to merge" },
-                  { icon: Activity, text: "Conversation waiting" },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4 text-[#E8E0D4]">
-                    <div className="w-6 h-6 rounded-full bg-[#C4A882]/10 flex items-center justify-center shrink-0">
-                      <item.icon className="w-3 h-3 text-[#C4A882]" />
-                    </div>
-                    <span className="text-sm font-medium">{item.text}</span>
-                  </div>
-                ))}
-                <div className="flex items-center gap-4 text-[#C4A882]">
-                  <div className="w-6 h-6 rounded-full bg-[#C4A882] flex items-center justify-center shrink-0">
-                    <Check className="w-3 h-3 text-[#1A1714]" />
-                  </div>
-                  <span className="text-sm font-bold">3 things need your attention</span>
-                </div>
-              </div>
-            </div>
-
           </div>
+
+          {/* Arrow */}
+          <div className="hidden md:flex w-14 h-14 rounded-full border border-slate-700/50 bg-[#0A0D14] items-center justify-center shadow-xl shrink-0 z-10">
+            <ArrowRight className="w-6 h-6 text-slate-500" />
+          </div>
+
+          {/* Solution */}
+          <div className="bg-[#0A0D14] border border-slate-800/80 rounded-3xl p-10 relative overflow-hidden h-[420px] shadow-2xl">
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold text-white mb-8">The solution</h3>
+              <ul className="space-y-5">
+                <li className="flex items-center gap-4 text-slate-300 text-[15px]"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> One place for all your work</li>
+                <li className="flex items-center gap-4 text-slate-300 text-[15px]"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Real-time awareness</li>
+                <li className="flex items-center gap-4 text-slate-300 text-[15px]"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Never miss what matters</li>
+                <li className="flex items-center gap-4 text-slate-300 text-[15px]"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Know exactly what to do next</li>
+                <li className="flex items-center gap-4 text-slate-300 text-[15px]"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Workflows that fit your brain</li>
+              </ul>
+            </div>
+            
+            {/* Background Blur Graphic */}
+            <div className="absolute -right-8 top-1/2 -translate-y-1/2 opacity-20 blur-[1px] scale-110 pointer-events-none select-none">
+              <div className="w-56 space-y-4">
+                <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
+                  <div className="flex items-center gap-2 text-blue-400 text-xs mb-2"><Inbox className="w-3 h-3" /> Needs Me</div>
+                  <div className="text-2xl font-bold text-white">12</div>
+                </div>
+                <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
+                  <div className="flex items-center gap-2 text-purple-400 text-xs mb-2"><Activity className="w-3 h-3" /> Waiting On</div>
+                  <div className="text-2xl font-bold text-white">7</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* 4. Before vs After */}
-      <section className="py-28 bg-[#141210]">
-        <div className="max-w-[1100px] mx-auto px-6">
+      {/* 4. Features Grid */}
+      <section className="py-24 border-t border-slate-800/50 bg-[#040609]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
           <div className="text-center mb-16">
-            <div className="text-[#C4A882] text-sm font-semibold mb-3 uppercase tracking-wider">Before vs After</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Built for how developers actually work</h2>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-[#1A1714] border border-[#2A2520] rounded-2xl p-8">
-              <h3 className="text-lg font-bold text-[#E8E0D4] mb-6 flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#B5705A]" />
-                Before GitTower
-              </h3>
-              <div className="space-y-3 font-mono text-sm">
-                {[
-                  { label: "Notifications", val: "23" },
-                  { label: "Browser Tabs", val: "9" },
-                  { label: "Repositories", val: "6" },
-                  { label: "Review Requests", val: "4" },
-                  { label: "Mentions", val: "3" },
-                ].map((item, i) => (
-                  <div key={i} className="p-3 bg-[#141210] border border-[#2A2520] rounded-lg flex justify-between text-[#6E685E]">
-                    <span>{item.label}</span> <span className="text-[#E8E0D4] font-semibold">{item.val}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-6 text-center text-[#B5705A] font-medium bg-[#B5705A]/5 py-3 rounded-lg border border-[#B5705A]/10">
-                "Where do I start?"
-              </p>
-            </div>
-
-            <div className="bg-[#C4A882]/5 border border-[#C4A882]/20 rounded-2xl p-8">
-              <h3 className="text-lg font-bold text-[#E8E0D4] mb-6 flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#8AAF7A]" />
-                After GitTower
-              </h3>
-              <div className="text-xs font-bold text-[#6E685E] uppercase tracking-wider mb-4">Needs Me (4)</div>
-              <div className="space-y-4">
-                {["Review React PR", "Reply to Sarah", "Merge Payment Fix", "Answer maintainer"].map((text, i) => (
-                  <div key={i} className="flex items-center gap-3 text-[#E8E0D4]">
-                    <Check className="w-5 h-5 text-[#8AAF7A]" /> {text}
-                  </div>
-                ))}
-              </div>
-              <p className="mt-8 text-center text-[#8AAF7A] font-bold text-lg">
-                ✓ Done.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Features Grid */}
-      <section className="py-28 bg-[#1A1714]">
-        <div className="max-w-[1300px] mx-auto px-6 lg:px-12">
-          <div className="text-[#C4A882] text-sm font-semibold mb-3 uppercase tracking-wider">Everything you need in one place</div>
-          <h2 className="text-3xl font-bold text-[#E8E0D4] mb-12">Built for how developers actually work.</h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Inbox, title: "One inbox", desc: "PRs, issues, mentions, reviews, and discussions in one intelligent inbox." },
-              { icon: Zap, title: "AI summaries", desc: "Decisions, open questions, and blockers summarized so you spend less time reading." },
-              { icon: Code, title: "Review faster", desc: "See code, discussion, timeline, and status together. No tab switching." },
-              { icon: Activity, title: "Attention first", desc: "Work organized by priority, not by repository. Ship more, stress less." },
-            ].map((feature, i) => (
-              <div key={i} className="bg-[#141210] border border-[#2A2520] rounded-2xl p-6 flex flex-col hover:border-[#3A3430] transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-[#222018] flex items-center justify-center mb-6">
-                  <feature.icon className="w-5 h-5 text-[#C4A882]" />
-                </div>
-                <h3 className="text-base font-bold text-[#E8E0D4] mb-2">{feature.title}</h3>
-                <p className="text-sm text-[#8A8478] leading-relaxed flex-1">{feature.desc}</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+            <div className="flex flex-col items-start">
+              <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 border border-blue-500/20">
+                <Zap className="w-7 h-7 text-blue-400" />
               </div>
-            ))}
+              <h3 className="text-lg font-bold text-white mb-3">Real-time, not delayed</h3>
+              <p className="text-[15px] text-slate-400 leading-relaxed">
+                Live updates for PRs, reviews, mentions, CI, deployments, and everything in between.
+              </p>
+            </div>
+            
+            <div className="flex flex-col items-start">
+              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-6 border border-indigo-500/20">
+                <Target className="w-7 h-7 text-indigo-400" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-3">Context over noise</h3>
+              <p className="text-[15px] text-slate-400 leading-relaxed">
+                We surface what matters to you and hide the rest.
+              </p>
+            </div>
+            
+            <div className="flex flex-col items-start">
+              <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 border border-purple-500/20">
+                <Sparkles className="w-7 h-7 text-purple-400" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">AI that gets it <span className="text-[10px] uppercase tracking-wider bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded-full">Coming Soon</span></h3>
+              <p className="text-[15px] text-slate-400 leading-relaxed">
+                We'll be implementing AI in the near future to provide smart summaries, blocker detection, and next actions tailored to your work.
+              </p>
+            </div>
+            
+            <div className="flex flex-col items-start">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 border border-emerald-500/20">
+                <Lock className="w-7 h-7 text-emerald-400" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-3">Your data, your control</h3>
+              <p className="text-[15px] text-slate-400 leading-relaxed">
+                Built with privacy in mind. Your code stays on GitHub. We just help you work better.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 6. Built For */}
-      <section className="py-28 bg-[#141210]">
-        <div className="max-w-[1100px] mx-auto px-6">
+      {/* 4.5. Roadmap */}
+      <section id="roadmap" className="py-24 border-t border-slate-800/50 bg-[#06080C]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
           <div className="text-center mb-16">
-            <div className="text-[#C4A882] text-sm font-semibold mb-3 uppercase tracking-wider">Built for</div>
-            <h2 className="text-3xl font-bold text-[#E8E0D4]">Developers who ship.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Roadmap</h2>
+            <p className="text-slate-400">What we are building next to make GitTower even better.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Code, title: "Open Source Contributors", desc: "Contribute to multiple projects without losing track.", color: "text-[#7A9EC4]" },
-              { icon: Users, title: "Maintainers", desc: "Know what needs your review and what can wait.", color: "text-[#C4A882]" },
-              { icon: Layers, title: "Engineering Teams", desc: "Stay on top of discussions, reviews, and decisions.", color: "text-[#A07AAF]" },
-              { icon: Box, title: "Indie Developers", desc: "Manage personal projects without tab overload.", color: "text-[#8AAF7A]" },
-            ].map((item, i) => (
-              <div key={i} className="bg-[#1A1714] border border-[#2A2520] rounded-2xl p-6">
-                <item.icon className={`w-7 h-7 mb-4 ${item.color}`} />
-                <h3 className="text-base font-bold text-[#E8E0D4] mb-2">{item.title}</h3>
-                <p className="text-sm text-[#8A8478]">{item.desc}</p>
+          <div className="max-w-4xl mx-auto space-y-6">
+            <div className="bg-[#0A0D14] border border-slate-800 rounded-2xl p-8 shadow-xl">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                  <Sparkles className="w-5 h-5 text-purple-400" /> AI Integration
+                </h3>
+                <span className="text-xs uppercase tracking-wider bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full font-medium">Coming Soon</span>
               </div>
-            ))}
+              <p className="text-slate-400 leading-relaxed mb-4">We are bringing AI natively into your workspace to help you merge faster and context-switch less.</p>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-sm text-slate-300"><Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" /> <strong>Smart Summaries:</strong> Get instant TL;DRs of massive pull requests before you start reviewing.</li>
+                <li className="flex items-start gap-3 text-sm text-slate-300"><Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" /> <strong>Blocker Detection:</strong> AI automatically parses failed CI logs to tell you exactly what broke.</li>
+                <li className="flex items-start gap-3 text-sm text-slate-300"><Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" /> <strong>Next Actions:</strong> Suggestions on who to ping or what to fix to unblock your workflow.</li>
+              </ul>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-[#0A0D14] border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h3 className="text-lg font-bold text-white mb-2">Team Analytics</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">Gain insights into your team's velocity, review times, and bottlenecks directly from your GitHub data without switching to a different tool.</p>
+              </div>
+              <div className="bg-[#0A0D14] border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h3 className="text-lg font-bold text-white mb-2">Mobile Companion</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">A native mobile experience to manage your pull requests, reply to mentions, and keep track of your active work on the go.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 7. Open Source */}
-      <section className="py-20 bg-[#1A1714]">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-bold text-[#E8E0D4] mb-8">Built for developers.</h2>
-          <div className="flex flex-wrap justify-center gap-6 text-base font-medium text-[#E8E0D4] mb-4">
-            <span className="flex items-center gap-2"><Check className="w-5 h-5 text-[#8AAF7A]" /> Free forever.</span>
-            <span className="flex items-center gap-2"><Check className="w-5 h-5 text-[#8AAF7A]" /> Open source.</span>
-            <span className="flex items-center gap-2"><Check className="w-5 h-5 text-[#8AAF7A]" /> Community driven.</span>
+      {/* 4.6. FAQ */}
+      <section id="faq" className="py-24 border-t border-slate-800/50 bg-[#040609]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
           </div>
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-[#6E685E]">
-            <span>No subscriptions.</span>
-            <span>No feature paywalls.</span>
-            <span>No artificial limits.</span>
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="bg-[#0A0D14] border border-slate-800 rounded-2xl p-6">
+              <h3 className="text-lg font-bold text-white mb-2">Is GitTower free?</h3>
+              <p className="text-slate-400">Yes, GitTower is completely free to use. There are no premium tiers, paywalls, or hidden costs.</p>
+            </div>
+            <div className="bg-[#0A0D14] border border-slate-800 rounded-2xl p-6">
+              <h3 className="text-lg font-bold text-white mb-2">Does GitTower store my source code?</h3>
+              <p className="text-slate-400">No. GitTower only requests the necessary GitHub permissions to read your issues, PRs, and workflows to display them in your dashboard. Your source code never leaves GitHub's servers.</p>
+            </div>
+            <div className="bg-[#0A0D14] border border-slate-800 rounded-2xl p-6">
+              <h3 className="text-lg font-bold text-white mb-2">Do I need to install an app on my computer?</h3>
+              <p className="text-slate-400">GitTower is entirely web-based and runs in your browser. Simply log in with your GitHub account and you're good to go.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 8. CTA */}
-      <section className="py-28 bg-[#C4A882]">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#1A1714] tracking-tight mb-4">Stop searching GitHub.</h2>
-          <h2 className="text-3xl md:text-5xl font-bold text-[#1A1714]/60 tracking-tight mb-10">Start organizing your work.</h2>
+      {/* 5. CTA Footer */}
+      <footer className="py-32 bg-[#06080C] text-center border-t border-slate-800/50">
+        <div className="max-w-2xl mx-auto px-8">
+          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-12">
+            Ship more. Stress less.
+          </h2>
           <button 
             onClick={onConnect}
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#1A1714] text-[#E8E0D4] font-semibold rounded-xl hover:bg-[#2A2520] transition-colors text-lg mx-auto mb-4"
+            className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-colors text-lg shadow-2xl shadow-blue-500/25 group w-full sm:w-auto"
           >
             <Github className="w-5 h-5" />
             Continue with GitHub
           </button>
-          <p className="text-[#1A1714]/60 font-medium text-sm">Free forever. Open Source.</p>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-16 bg-[#141210] border-t border-[#2A2520]">
-        <div className="max-w-[1100px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-6 h-6 bg-[#C4A882] rounded flex items-center justify-center text-[#1A1714]"><Box className="w-4 h-4" /></div>
-              <span className="font-semibold text-[#E8E0D4]">GitTower</span>
-            </div>
-            <p className="text-sm text-[#6E685E]">The GitHub command center for developers.</p>
-          </div>
-          
-          <div>
-            <h4 className="text-[#E8E0D4] font-semibold mb-4 text-sm">Product</h4>
-            <ul className="space-y-2 text-sm text-[#6E685E]">
-              <li><a href="#" className="hover:text-[#C4A882]">Features</a></li>
-              <li><a href="#" className="hover:text-[#C4A882]">Roadmap</a></li>
-              <li><a href="#" className="hover:text-[#C4A882]">Documentation</a></li>
-              <li><a href="#" className="hover:text-[#C4A882]">Changelog</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-[#E8E0D4] font-semibold mb-4 text-sm">Community</h4>
-            <ul className="space-y-2 text-sm text-[#6E685E]">
-              <li><a href="#" className="hover:text-[#C4A882]">GitHub</a></li>
-              <li><a href="#" className="hover:text-[#C4A882]">Discord</a></li>
-              <li><a href="#" className="hover:text-[#C4A882]">Discussions</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-[#E8E0D4] font-semibold mb-4 text-sm">Resources</h4>
-            <ul className="space-y-2 text-sm text-[#6E685E]">
-              <li><a href="#" className="hover:text-[#C4A882]">Blog</a></li>
-              <li><a href="#" className="hover:text-[#C4A882]">Privacy</a></li>
-              <li><a href="#" className="hover:text-[#C4A882]">Terms</a></li>
-            </ul>
-          </div>
         </div>
       </footer>
     </div>

@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import LandingPage from '../components/LandingPage';
+import RightSidebar from '../components/RightSidebar';
 import rehypeRaw from 'rehype-raw';
 import remarkAlert from 'remark-github-alerts';
 import { ArrowLeft, Send, AtSign as AtSignIcon, Hash, HelpCircle, CheckSquare, GitCommit, MoreHorizontal, UserPlus, UserMinus, Link2, PlayCircle, GitPullRequestDraft, ClipboardList, Bold, Italic, ChevronDown, Code2, Monitor, Box, AlertTriangle, AlertOctagon, Tag } from 'lucide-react';
@@ -247,12 +248,43 @@ export default function Home() {
   const [mutedRepos, setMutedRepos] = useState<Record<string, boolean>>({'vercel/next.js': true});
   const [repoSearchQuery, setRepoSearchQuery] = useState("");
   const [allUserRepos, setAllUserRepos] = useState<any[]>([]);
+
+  const [doneItems, setDoneItems] = useState<Record<number, string>>({});
+  const [doneItemsLoaded, setDoneItemsLoaded] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('gittower_done_items');
+      if (saved) setDoneItems(JSON.parse(saved));
+    } catch (e) {}
+    setDoneItemsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (doneItemsLoaded) {
+      localStorage.setItem('gittower_done_items', JSON.stringify(doneItems));
+    }
+  }, [doneItems, doneItemsLoaded]);
+
+  const handleMarkDone = (id: number, updatedAt: string) => {
+    setDoneItems(prev => ({ ...prev, [id]: updatedAt }));
+  };
+
+  const filterItems = (items: GitHubIssue[]) => items.filter(item => {
+    if (mutedRepos[extractRepoName(item.repository_url)]) return false;
+    const doneUpdatedAt = doneItems[item.id];
+    if (doneUpdatedAt && new Date(doneUpdatedAt).getTime() >= new Date(item.updated_at).getTime()) {
+      return false;
+    }
+    return true;
+  });
   const [loadingRepos, setLoadingRepos] = useState(false);
   const [selectedItem, setSelectedItem] = useState<GitHubIssue | null>(null);
   const [timeline, setTimeline] = useState<any[]>([]);
   const [isLoadingTimeline, setIsLoadingTimeline] = useState(false);
   const [checks, setChecks] = useState<any>(null);
   const [isLoadingChecks, setIsLoadingChecks] = useState(false);
+  const [globalWorkflows, setGlobalWorkflows] = useState<{active: any[], failed: any[]}>({ active: [], failed: [] });
   const [readItems, setReadItems] = useState<Set<number>>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('gittower_read_items');
@@ -700,6 +732,34 @@ export default function Home() {
     }
   }, [isAuthenticated]);
 
+  // Realtime Global Workflows Polling
+  useEffect(() => {
+    if (isAuthenticated && data) {
+      const activeRepos = Array.from(new Set([
+        ...(data.reviewRequested || []),
+        ...(data.mentions || []),
+        ...(data.myPrs || []),
+        ...(data.involved || []),
+        ...(data.assigned || [])
+      ].map((item: any) => extractRepoName(item.repository_url))));
+      
+      const fetchGlobalWorkflows = () => {
+        if (activeRepos.length === 0) return;
+        fetch(`/api/github/workflows?repos=${activeRepos.join(',')}&actor=${user?.login || ''}`)
+          .then(res => res.ok ? res.json() : null)
+          .then(wfData => {
+            if (wfData && !wfData.error) setGlobalWorkflows(wfData);
+          })
+          .catch(() => {});
+      };
+      
+      fetchGlobalWorkflows();
+      const interval = setInterval(fetchGlobalWorkflows, 30000); // Poll every 30 seconds
+      
+      return () => clearInterval(interval);
+    }
+  }, [isAuthenticated, data]);
+
   useEffect(() => {
     setTimeout(() => checkAuth(), 0);
     
@@ -750,6 +810,79 @@ export default function Home() {
 
   if (!isAuthenticated) {
     return <LandingPage onConnect={handleConnect} />;
+  }
+
+  // Derive RightSidebar props
+  const rightSidebarWaitingOn = data?.myPrs?.filter(pr => pr.requested_reviewers && pr.requested_reviewers.length > 0).map(pr => ({
+    id: `w-${pr.id}`,
+    title: pr.title,
+    reason: `Waiting for ${pr.requested_reviewers?.[0]?.login || 'reviewers'}`,
+    url: pr.html_url
+  })) || [];
+
+  const rightSidebarTimeline = timeline?.slice(-5).map((t, i) => ({
+    id: `t-${t.id || i}`,
+    time: t.created_at ? formatDistanceToNow(new Date(t.created_at), { addSuffix: true }) : '',
+    text: t.event === 'commented' ? 'Commented' : t.event === 'review_requested' ? 'Review Requested' : t.event || 'Activity',
+    active: i === Math.min(timeline.length, 5) - 1,
+    isError: t.event === 'failed'
+  })).reverse() || [];
+  
+  const prActiveWork = checks?.pending_runs?.map((c: any) => ({
+    id: `aw-${c.id}`,
+    repo: selectedItem ? extractRepoName(selectedItem.repository_url) : 'Repo',
+    avatar: selectedItem?.user?.avatar_url || '',
+    name: c.name,
+    status: 'Running',
+    icon: 'yellow-dot' as const,
+    url: c.html_url
+  })) || [];
+  
+  const globalActiveWork = globalWorkflows.active.map((w: any) => ({
+    id: `gaw-${w.id}`,
+    repo: w.repo,
+    avatar: w.actor_avatar,
+    name: w.name,
+    status: 'Running',
+    icon: 'yellow-dot' as const,
+    url: w.html_url
+  }));
+
+  const activeWorkNames = new Set(prActiveWork.map((w: any) => w.name + w.repo));
+  const rightSidebarActiveWork = [
+    ...prActiveWork, 
+    ...globalActiveWork.filter((w: any) => !activeWorkNames.has(w.name + w.repo))
+  ];
+  
+  const prBlockers = checks?.failed_runs?.map((c: any) => ({
+    id: `b-${c.id}`,
+    title: 'Check Failed',
+    reason: c.name,
+    color: 'bg-red-500',
+    url: c.html_url
+  })) || [];
+
+  const globalBlockers = globalWorkflows.failed.map((w: any) => ({
+    id: `gb-${w.id}`,
+    title: 'Run Failed',
+    reason: w.name,
+    color: 'bg-red-500',
+    url: w.html_url
+  }));
+
+  const blockerNames = new Set(prBlockers.map((b: any) => b.reason));
+  const rightSidebarBlockers = [
+    ...prBlockers,
+    ...globalBlockers.filter((b: any) => !blockerNames.has(b.reason))
+  ];
+
+  if (checks && checks.mergeable === false && selectedItem) {
+    rightSidebarBlockers.push({
+      id: `mb-${selectedItem.id}`,
+      title: 'Merge blocked',
+      reason: checks.mergeable_state || 'Conflicts',
+      color: 'bg-yellow-500'
+    });
   }
 
   return (
@@ -1850,11 +1983,12 @@ export default function Home() {
                   id="reviews"
                   title="Review Requests" 
                   icon={<GitPullRequest className="w-5 h-5 text-blue-500" />} 
-                  items={data.reviewRequested.filter(item => !mutedRepos[extractRepoName(item.repository_url)])} 
+                  items={filterItems(data.reviewRequested)} 
                   emptyMessage="You have no pending review requests. Great job!"
                   extractRepoName={extractRepoName}
                   onItemSelected={handleItemSelected}
                   readItems={readItems}
+                  onMarkDone={handleMarkDone}
                 />
               )}
               {(activeView === 'inbox' || activeView === 'mentions') && (
@@ -1862,11 +1996,12 @@ export default function Home() {
                   id="mentions"
                   title="Mentions" 
                   icon={<AtSign className="w-5 h-5 text-orange-500" />} 
-                  items={data.mentions.filter(item => !mutedRepos[extractRepoName(item.repository_url)])} 
+                  items={filterItems(data.mentions)} 
                   emptyMessage="No unaddressed mentions."
                   extractRepoName={extractRepoName}
                   onItemSelected={handleItemSelected}
                   readItems={readItems}
+                  onMarkDone={handleMarkDone}
                 />
               )}
               {(activeView === 'inbox' || activeView === 'my-prs') && (
@@ -1874,11 +2009,12 @@ export default function Home() {
                   id="my-prs"
                   title="Your Pull Requests" 
                   icon={<GitMerge className="w-5 h-5 text-purple-500" />} 
-                  items={data.myPrs.filter(item => !mutedRepos[extractRepoName(item.repository_url)])} 
+                  items={filterItems(data.myPrs)} 
                   emptyMessage="You don't have any open pull requests."
                   extractRepoName={extractRepoName}
                   onItemSelected={handleItemSelected}
                   readItems={readItems}
+                  onMarkDone={handleMarkDone}
                 />
               )}
               {(activeView === 'inbox' || activeView === 'involved') && (
@@ -1886,11 +2022,12 @@ export default function Home() {
                   id="involved"
                   title="Involved Discussions" 
                   icon={<MessageCircle className="w-5 h-5 text-emerald-500" />} 
-                  items={data.involved.filter(item => !mutedRepos[extractRepoName(item.repository_url)])} 
+                  items={filterItems(data.involved)} 
                   emptyMessage="You're all caught up on discussions."
                   extractRepoName={extractRepoName}
                   onItemSelected={handleItemSelected}
                   readItems={readItems}
+                  onMarkDone={handleMarkDone}
                 />
               )}
               {(activeView === 'inbox' || activeView === 'assigned') && (
@@ -1898,11 +2035,12 @@ export default function Home() {
                   id="assigned"
                   title="Assigned to me" 
                   icon={<ClipboardList className="w-5 h-5 text-teal-500" />} 
-                  items={data.assigned.filter(item => !mutedRepos[extractRepoName(item.repository_url)])} 
+                  items={filterItems(data.assigned)} 
                   emptyMessage="You have no assigned issues."
                   extractRepoName={extractRepoName}
                   onItemSelected={handleItemSelected}
                   readItems={readItems}
+                  onMarkDone={handleMarkDone}
                 />
               )}
             </div>
@@ -1911,11 +2049,17 @@ export default function Home() {
           )}
         </div>
       </main>
+      <RightSidebar 
+        initialActiveWork={rightSidebarActiveWork}
+        initialBlockers={rightSidebarBlockers}
+        initialWaitingOn={rightSidebarWaitingOn}
+        initialTimeline={rightSidebarTimeline}
+      />
     </div>
   );
 }
 
-function Section({ id, title, icon, items, emptyMessage, extractRepoName, onItemSelected, readItems }: { id: string, title: string, icon: React.ReactNode, items: GitHubIssue[], emptyMessage: string, extractRepoName: (url: string) => string, onItemSelected: (item: GitHubIssue) => void, readItems: Set<number> }) {
+function Section({ id, title, icon, items, emptyMessage, extractRepoName, onItemSelected, readItems, onMarkDone }: { id: string, title: string, icon: React.ReactNode, items: GitHubIssue[], emptyMessage: string, extractRepoName: (url: string) => string, onItemSelected: (item: GitHubIssue) => void, readItems: Set<number>, onMarkDone: (id: number, updatedAt: string) => void }) {
   return (
     <section id={id} className="scroll-mt-8">
       <div className="flex items-center gap-3 mb-6">
@@ -1935,56 +2079,80 @@ function Section({ id, title, icon, items, emptyMessage, extractRepoName, onItem
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-app-panel border border-app-border rounded-xl shadow-sm overflow-hidden flex flex-col"
+          className="bg-app-panel border border-app-border rounded-xl shadow-sm flex flex-col"
         >
-          {items.map((item, index) => {
-            const isRead = readItems.has(item.id);
-            return (
-            <button 
-              key={item.id} 
-              onClick={() => onItemSelected(item)}
-              className={`block w-full text-left p-4 sm:px-6 hover:bg-app-base transition-colors group ${index !== items.length - 1 ? 'border-b border-app-border' : ''} ${!isRead ? 'bg-[#2563eb]/5' : ''}`}
-            >
-              <div className="flex items-start gap-4">
-                <Image src={item.user.avatar_url} alt={item.user.login} width={32} height={32} className="w-8 h-8 rounded-full bg-app-sidebar shrink-0 mt-0.5" referrerPolicy="no-referrer" />
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 mb-1">
-                    <div className="flex items-center gap-2 pr-4 min-w-0 flex-1">
-                      {!isRead && <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />}
-                      <h3 className={`text-[15px] truncate group-hover:text-blue-500 transition-colors ${isRead ? 'font-medium text-app-muted' : 'font-bold text-app-text'}`}>
-                        {item.title}
-                      </h3>
-                    </div>
-                    <span className="text-xs text-app-meta whitespace-nowrap shrink-0">
-                      {formatDistanceToNow(new Date(item.updated_at), { addSuffix: true })}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm text-app-muted">
-                    <span className="font-medium text-app-text">{extractRepoName(item.repository_url)}</span>
-                    <span className="text-app-muted">•</span>
-                    <span>#{item.number}</span>
-                    <span className="text-app-muted">•</span>
-                    <span>by {item.user.login}</span>
-                  </div>
-                  {item.related_issue && (
-                    <div className="mt-2 flex items-center gap-2 text-xs">
-                      <div className="bg-app-border text-app-muted px-2 py-0.5 rounded flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        <span>Fixes #{item.related_issue.number}</span>
+          <AnimatePresence initial={false}>
+            {items.map((item) => {
+              const isRead = readItems.has(item.id);
+              return (
+              <motion.button 
+                key={item.id} 
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                onClick={() => onItemSelected(item)}
+                className={`block w-full overflow-hidden text-left hover:bg-app-base transition-colors group border-b border-app-border last:border-b-0 ${!isRead ? 'bg-[#2563eb]/5' : ''}`}
+              >
+                <div className="p-4 sm:px-6">
+                  <div className="flex items-start gap-4">
+                    <Image src={item.user.avatar_url} alt={item.user.login} width={32} height={32} className="w-8 h-8 rounded-full bg-app-sidebar shrink-0 mt-0.5" referrerPolicy="no-referrer" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 mb-1">
+                        <div className="flex items-center gap-2 pr-4 min-w-0 flex-1">
+                          {!isRead && <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />}
+                          <h3 className={`text-[15px] truncate group-hover:text-blue-500 transition-colors ${isRead ? 'font-medium text-app-muted' : 'font-bold text-app-text'}`}>
+                            {item.title}
+                          </h3>
+                        </div>
+                        <span className="text-xs text-app-meta whitespace-nowrap shrink-0">
+                          {formatDistanceToNow(new Date(item.updated_at), { addSuffix: true })}
+                        </span>
                       </div>
-                      <a href={item.related_issue.html_url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-app-meta hover:text-app-muted transition-colors truncate">
-                        {item.related_issue.title}
+                      <div className="flex items-center gap-3 text-sm text-app-muted">
+                        <span className="font-medium text-app-text">{extractRepoName(item.repository_url)}</span>
+                        <span className="text-app-muted">•</span>
+                        <span>#{item.number}</span>
+                        <span className="text-app-muted">•</span>
+                        <span>by {item.user.login}</span>
+                      </div>
+                      {item.related_issue && (
+                        <div className="mt-2 flex items-center gap-2 text-xs">
+                          <div className="bg-app-border text-app-muted px-2 py-0.5 rounded flex items-center gap-1">
+                            <AlertCircle className="w-3 h-3" />
+                            <span>Fixes #{item.related_issue.number}</span>
+                          </div>
+                          <a href={item.related_issue.html_url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-app-meta hover:text-app-muted transition-colors truncate">
+                            {item.related_issue.title}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                    <div className="shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); onMarkDone(item.id, item.updated_at); }}
+                        className="p-1.5 text-app-muted hover:text-emerald-400 rounded hover:bg-slate-700/50 transition-colors hidden sm:block"
+                        title="Mark as done"
+                      >
+                        <CheckCircle2 className="w-4 h-4" />
+                      </button>
+                      <a 
+                        href={item.html_url} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-1.5 text-app-muted hover:text-white rounded hover:bg-slate-700/50 transition-colors hidden sm:block"
+                        title="Open in GitHub"
+                      >
+                        <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
-                  )}
+                  </div>
                 </div>
-                <div className="shrink-0 text-app-muted group-hover:text-app-meta transition-colors hidden sm:block">
-                  <ExternalLink className="w-4 h-4" />
-                </div>
-              </div>
-            </button>
-            );
-          })}
+              </motion.button>
+              );
+            })}
+          </AnimatePresence>
         </motion.div>
       )}
     </section>

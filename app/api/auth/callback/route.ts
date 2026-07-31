@@ -17,10 +17,13 @@ export async function GET(req: Request) {
     return new NextResponse("Internal server error", { status: 500 });
   }
 
+  const protocol = req.headers.get('x-forwarded-proto') ? `${req.headers.get('x-forwarded-proto')}:` : url.protocol;
+  const host = req.headers.get('x-forwarded-host') || req.headers.get('host') || url.host;
+
   // Use APP_URL if set, otherwise fall back to Vercel production URL, then request host
   const baseUrl = process.env.APP_URL 
     || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : null)
-    || `${url.protocol}//${url.host}`;
+    || `${protocol}//${host}`;
   const redirectUri = `${baseUrl}/api/auth/callback`;
 
   try {
