@@ -59,8 +59,8 @@ export default function LandingPage({ onConnect }: { onConnect: () => void }) {
 
         <div className="flex flex-col w-full relative z-10">
           
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24 items-center w-full mt-16 mb-12">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="flex flex-col justify-center lg:pr-12">
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-32 items-center w-full mt-16 mb-12">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="flex flex-col justify-center lg:pr-16">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-200 tracking-tight leading-[1.15] max-w-2xl">
                 Review a PR. Check a build. Find a mention. <br/>
                 <span className="text-slate-400 text-3xl md:text-4xl lg:text-5xl block mt-4">Your GitHub is scattered across 20 open tabs.</span>
