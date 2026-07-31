@@ -27,7 +27,7 @@ export async function GET() {
     const [reviewRequested, mentions, myPrs, involved, assigned] = await Promise.all([
       fetchSearch("is:pr is:open review-requested:@me"),
       fetchSearch("is:open mentions:@me"),
-      fetchSearch("is:pr is:open author:@me"),
+      fetchSearch("is:pr author:@me"),
       fetchSearch("is:open involves:@me -author:@me"),
       fetchSearch("is:open assignee:@me"),
     ]);

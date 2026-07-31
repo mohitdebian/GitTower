@@ -2013,7 +2013,7 @@ export default function Home() {
                   title="Your Pull Requests" 
                   icon={<GitMerge className="w-5 h-5 text-purple-500" />} 
                   items={filterItems(data.myPrs, true)} 
-                  emptyMessage="You don't have any open pull requests."
+                  emptyMessage="You don't have any pull requests."
                   extractRepoName={extractRepoName}
                   onItemSelected={handleItemSelected}
                   readItems={readItems}
