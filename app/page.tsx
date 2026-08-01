@@ -171,6 +171,7 @@ type DashboardData = {
   myPrs: GitHubIssue[];
   involved: GitHubIssue[];
   assigned: GitHubIssue[];
+  notifications: GitHubIssue[];
 };
 
 const extractCamoUrls = (html?: string) => {
@@ -931,7 +932,7 @@ export default function Home() {
               if (!data) return 0;
               return filterItems(data[key], key === 'myPrs').length;
             };
-            const inboxCount = getCount('reviewRequested') + getCount('mentions') + getCount('assigned');
+            const inboxCount = getCount('notifications');
             
             const renderNavItem = (id: any, label: string, Icon: any, count?: number) => {
               const isActive = activeView === id;
@@ -1981,7 +1982,20 @@ export default function Home() {
             </div>
           ) : data ? (
             <div className="space-y-12">
-              {(activeView === 'inbox' || activeView === 'reviews') && (
+              {(activeView === 'inbox') && (
+                <Section 
+                  id="notifications"
+                  title="Unread Notifications" 
+                  icon={<Inbox className="w-5 h-5 text-blue-500" />} 
+                  items={filterItems(data.notifications)} 
+                  emptyMessage="You have no unread notifications. Inbox zero!"
+                  extractRepoName={extractRepoName}
+                  onItemSelected={handleItemSelected}
+                  readItems={readItems}
+                  onMarkDone={handleMarkDone}
+                />
+              )}
+              {(activeView === 'reviews') && (
                 <Section 
                   id="reviews"
                   title="Review Requests" 
@@ -1994,7 +2008,7 @@ export default function Home() {
                   onMarkDone={handleMarkDone}
                 />
               )}
-              {(activeView === 'inbox' || activeView === 'mentions') && (
+              {(activeView === 'mentions') && (
                 <Section 
                   id="mentions"
                   title="Mentions" 
@@ -2033,7 +2047,7 @@ export default function Home() {
                   onMarkDone={handleMarkDone}
                 />
               )}
-              {(activeView === 'inbox' || activeView === 'assigned') && (
+              {(activeView === 'assigned') && (
                 <Section 
                   id="assigned"
                   title="Assigned to me" 

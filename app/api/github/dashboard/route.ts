@@ -23,13 +23,30 @@ export async function GET() {
       return data.items;
     };
 
-    // Fetch the 5 categories concurrently
-    const [reviewRequested, mentions, myPrs, involved, assigned] = await Promise.all([
+    // Fetch notifications
+    const fetchNotifications = async () => {
+      const res = await fetch(`https://api.github.com/notifications?all=false`, { headers });
+      if (!res.ok) return [];
+      const notifications = await res.json();
+      if (!Array.isArray(notifications)) return [];
+      
+      const urls = notifications.map(n => n.subject?.url).filter(Boolean).slice(0, 15);
+      const items = await Promise.all(
+        urls.map(url => fetch(url, { headers }).then(r => r.ok ? r.json() : null))
+      );
+      
+      // Filter out nulls and errors
+      return items.filter(i => i && !i.message);
+    };
+
+    // Fetch the 6 categories concurrently
+    const [reviewRequested, mentions, myPrs, involved, assigned, notifications] = await Promise.all([
       fetchSearch("is:pr is:open review-requested:@me"),
       fetchSearch("is:open mentions:@me"),
       fetchSearch("is:pr author:@me"),
       fetchSearch("is:open involves:@me -author:@me"),
       fetchSearch("is:open assignee:@me"),
+      fetchNotifications(),
     ]);
 
     return NextResponse.json({
@@ -38,6 +55,7 @@ export async function GET() {
       myPrs,
       involved,
       assigned,
+      notifications,
     });
   } catch (error) {
     console.error("Dashboard fetch error:", error);
