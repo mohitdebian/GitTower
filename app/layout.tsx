@@ -6,10 +6,15 @@ export const metadata: Metadata = {
   description: 'GitTower is the ultimate GitHub command center for developers. Zero context switching.',
 };
 
+import { Analytics } from "@vercel/analytics/react";
+
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
