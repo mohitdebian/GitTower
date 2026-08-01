@@ -35,8 +35,19 @@ export async function GET() {
         urls.map(url => fetch(url, { headers }).then(r => r.ok ? r.json() : null))
       );
       
-      // Filter out nulls and errors
-      return items.filter(i => i && !i.message);
+      // Filter out nulls and errors, and normalize to look like Search API issues
+      return items.filter(i => i && !i.message).map(i => {
+        // If it's a pull request endpoint response, it might lack repository_url
+        if (!i.repository_url) {
+          if (i.base && i.base.repo) {
+            i.repository_url = i.base.repo.url;
+          } else if (i.url) {
+            // e.g. https://api.github.com/repos/owner/repo/pulls/123 -> https://api.github.com/repos/owner/repo
+            i.repository_url = i.url.replace(/\/(issues|pulls)\/\d+$/, '');
+          }
+        }
+        return i;
+      });
     };
 
     // Fetch the 6 categories concurrently

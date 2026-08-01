@@ -800,7 +800,8 @@ export default function Home() {
   };
 
   const extractRepoName = (url: string) => {
-    const match = url.match(/repos\/(.+)\/(.+)$/);
+    if (!url) return 'Unknown';
+    const match = url.match(/repos\/([^\/]+)\/([^\/]+)/);
     return match ? `${match[1]}/${match[2]}` : 'Unknown';
   };
 
