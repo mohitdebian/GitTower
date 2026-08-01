@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import WorkTree from '../components/WorkTree';
 import { motion, AnimatePresence } from 'motion/react';
-import { Github, Loader2, GitPullRequest, AtSign, MessageCircle, GitMerge, CheckCircle2, AlertCircle, ExternalLink, LogOut, Inbox, Settings, Check, X, ShieldAlert, Clock, Ban, Network, Search, FolderTree, Menu } from 'lucide-react';
+import { Github, Loader2, GitPullRequest, AtSign, MessageCircle, GitMerge, CheckCircle2, AlertCircle, ExternalLink, LogOut, Inbox, Settings, Check, X, ShieldAlert, Clock, Ban, Network, Search, FolderTree, Menu, CircleDot } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import Image from 'next/image';
 import Markdown from 'react-markdown';
@@ -169,6 +169,7 @@ type DashboardData = {
   reviewRequested: GitHubIssue[];
   mentions: GitHubIssue[];
   myPrs: GitHubIssue[];
+  myIssues: GitHubIssue[];
   involved: GitHubIssue[];
   assigned: GitHubIssue[];
   notifications: GitHubIssue[];
@@ -245,7 +246,7 @@ export default function Home() {
   const [newRepo, setNewRepo] = useState("");
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(false);
-  const [activeView, setActiveView] = useState<'inbox' | 'reviews' | 'mentions' | 'my-prs' | 'involved' | 'manage-repos' | 'assigned' | 'graph'>('inbox');
+  const [activeView, setActiveView] = useState<'inbox' | 'reviews' | 'mentions' | 'my-prs' | 'my-issues' | 'involved' | 'manage-repos' | 'assigned' | 'graph'>('inbox');
   const [mutedRepos, setMutedRepos] = useState<Record<string, boolean>>({'vercel/next.js': true});
   const [repoSearchQuery, setRepoSearchQuery] = useState("");
   const [allUserRepos, setAllUserRepos] = useState<any[]>([]);
@@ -660,7 +661,7 @@ export default function Home() {
     
     if (repo) {
       // Find if we already have it in data
-      const allItems = [...(data?.reviewRequested || []), ...(data?.mentions || []), ...(data?.myPrs || []), ...(data?.involved || []), ...(data?.assigned || [])];
+      const allItems = [...(data?.reviewRequested || []), ...(data?.mentions || []), ...(data?.myPrs || []), ...(data?.myIssues || []), ...(data?.involved || []), ...(data?.assigned || [])];
       const existing = allItems.find(item => item.number === Number(num) && item.html_url.includes(repo));
       if (existing) {
         handleItemSelected(existing);
@@ -743,6 +744,7 @@ export default function Home() {
         ...(data.reviewRequested || []),
         ...(data.mentions || []),
         ...(data.myPrs || []),
+        ...(data.myIssues || []),
         ...(data.involved || []),
         ...(data.assigned || [])
       ].map((item: any) => extractRepoName(item.repository_url))));
@@ -970,6 +972,7 @@ export default function Home() {
                 {renderNavItem('reviews', 'Review Requests', CheckSquare, getCount('reviewRequested'))}
                 {renderNavItem('mentions', 'Mentions', AtSign, getCount('mentions'))}
                 {renderNavItem('my-prs', 'My Pull Requests', GitPullRequest, getCount('myPrs'))}
+                {renderNavItem('my-issues', 'My Issues', CircleDot, getCount('myIssues'))}
                 {renderNavItem('involved', 'Involved', MessageCircle, getCount('involved'))}
                 {renderNavItem('assigned', 'Assigned to me', ClipboardList, getCount('assigned'))}
                 
@@ -1911,7 +1914,7 @@ export default function Home() {
                     
                     // Add dashboard repos (may not be in API results if contributed via issues/PRs)
                     if (data) {
-                      const allItems = [...data.reviewRequested, ...data.mentions, ...data.myPrs, ...data.involved, ...data.assigned];
+                      const allItems = [...data.reviewRequested, ...data.mentions, ...data.myPrs, ...data.myIssues, ...data.involved, ...data.assigned];
                       allItems.forEach(item => {
                         const repoName = extractRepoName(item.repository_url);
                         if (repoName && !repoInfoMap.has(repoName)) {
@@ -2029,6 +2032,19 @@ export default function Home() {
                   icon={<GitMerge className="w-5 h-5 text-purple-500" />} 
                   items={filterItems(data.myPrs, true)} 
                   emptyMessage="You don't have any pull requests."
+                  extractRepoName={extractRepoName}
+                  onItemSelected={handleItemSelected}
+                  readItems={readItems}
+                  onMarkDone={handleMarkDone}
+                />
+              )}
+              {(activeView === 'my-issues') && (
+                <Section 
+                  id="my-issues"
+                  title="Your Issues" 
+                  icon={<CircleDot className="w-5 h-5 text-amber-500" />} 
+                  items={filterItems(data.myIssues, true)} 
+                  emptyMessage="You haven't created any issues."
                   extractRepoName={extractRepoName}
                   onItemSelected={handleItemSelected}
                   readItems={readItems}

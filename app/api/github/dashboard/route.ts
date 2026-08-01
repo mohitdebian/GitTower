@@ -50,11 +50,12 @@ export async function GET() {
       });
     };
 
-    // Fetch the 6 categories concurrently
-    const [reviewRequested, mentions, myPrs, involved, assigned, notifications] = await Promise.all([
+    // Fetch the 7 categories concurrently
+    const [reviewRequested, mentions, myPrs, myIssues, involved, assigned, notifications] = await Promise.all([
       fetchSearch("is:pr is:open review-requested:@me"),
       fetchSearch("is:open mentions:@me"),
       fetchSearch("is:pr author:@me"),
+      fetchSearch("is:issue author:@me is:open"),
       fetchSearch("is:open involves:@me -author:@me"),
       fetchSearch("is:open assignee:@me"),
       fetchNotifications(),
@@ -64,6 +65,7 @@ export async function GET() {
       reviewRequested,
       mentions,
       myPrs,
+      myIssues,
       involved,
       assigned,
       notifications,

@@ -26,14 +26,14 @@ type DashboardData = any;
 type GitHubIssue = any;
 
 // ─── Status Logic ───────────────────────────────────────────────────
-type ItemStatus = 'needs-reply' | 'review-requested' | 'mentioned' | 'waiting' | 'done' | 'my-pr';
+type ItemStatus = 'needs-reply' | 'review-requested' | 'mentioned' | 'waiting' | 'done' | 'authored';
 
 function getStatusConfig(status: ItemStatus) {
   switch (status) {
     case 'needs-reply':     return { color: '#ef4444', bg: 'rgba(239,68,68,0.12)',   label: 'Needs Reply' };
     case 'review-requested':return { color: '#a855f7', bg: 'rgba(168,85,247,0.12)',  label: 'Review Requested' };
     case 'mentioned':       return { color: '#eab308', bg: 'rgba(234,179,8,0.12)',   label: 'Mentioned' };
-    case 'my-pr':           return { color: '#3b82f6', bg: 'rgba(59,130,246,0.12)',  label: 'My PR' };
+    case 'authored':        return { color: '#3b82f6', bg: 'rgba(59,130,246,0.12)',  label: 'Created by Me' };
     case 'done':            return { color: '#22c55e', bg: 'rgba(34,197,94,0.12)',   label: 'Done' };
     case 'waiting':
     default:                return { color: '#64748b', bg: 'rgba(100,116,139,0.12)', label: 'Waiting' };
@@ -44,7 +44,7 @@ function deriveStatus(types: string[]): ItemStatus {
   if (types.includes('review'))   return 'review-requested';
   if (types.includes('mention'))  return 'mentioned';
   if (types.includes('assigned')) return 'needs-reply';
-  if (types.includes('my-pr'))    return 'my-pr';
+  if (types.includes('authored')) return 'authored';
   return 'waiting';
 }
 
@@ -210,7 +210,8 @@ export default function WorkTree({ data, mutedRepos, onNodeClick, extractRepoNam
     const allItems = [
       ...data.reviewRequested.map((i: any) => ({ ...i, _type: 'review' })),
       ...data.mentions.map((i: any) => ({ ...i, _type: 'mention' })),
-      ...data.myPrs.map((i: any) => ({ ...i, _type: 'my-pr' })),
+      ...data.myPrs.map((i: any) => ({ ...i, _type: 'authored' })),
+      ...data.myIssues.map((i: any) => ({ ...i, _type: 'authored' })),
       ...data.involved.map((i: any) => ({ ...i, _type: 'involved' })),
       ...data.assigned.map((i: any) => ({ ...i, _type: 'assigned' })),
     ];
@@ -251,7 +252,7 @@ export default function WorkTree({ data, mutedRepos, onNodeClick, extractRepoNam
   // ── Fetch CI/CD for PRs ────────────────────────────────────────
   useEffect(() => {
     if (!data) return;
-    const allItems = [...data.reviewRequested, ...data.mentions, ...data.myPrs, ...data.involved, ...data.assigned];
+    const allItems = [...data.reviewRequested, ...data.mentions, ...data.myPrs, ...data.myIssues, ...data.involved, ...data.assigned];
     const seen = new Set<string>();
     const prItems: { repo: string; number: number; key: string }[] = [];
 
